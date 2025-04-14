@@ -1,0 +1,29 @@
+Tour botanico, ventas;57;vender entradas;null;Entrada;15000
+Tour botanico, guia 1;57;dar informacion de las plantas;guia turistico;null;null
+Tour botanico, guia 2;57;dar infromacion de las plantas;guia turistico;null;null
+Tour botanico, seguridad;57;evitar accidentes y robos;seguridad medio;null;null
+Acuarium, ventas;58;vender entradas;null;Entrada;15000
+Acuarium, guia 1;58;dar infromacion de los peces;guia turistico;null;null
+Acuarium, guia 2;58;dar infromacion de los peces;guia turistico;null;null
+Observatorio Intergalactic, ventas;20;vender entradas;null;Entrada;25000
+Observatorio Intergalactic, seguridad;20;evitar accidentes y robos;seguridad medio;null;null
+Danza India, ventas;89;vender entradas;null;Entrada;20000;
+Danza India, seguridad;89;evitar accidentes y robos;seguridad medio;null;null
+El Domo, ventas;90;vender entradas;null;Entrada;25000
+El Domo, seguridad 1;90;evitar accidentes y robos;seguridad medio;null;null
+El Domo, seguridad 2;90;evitar accidentes y robos;seguridad medio;null;null
+Tornado, ventas;32;vender entradas;null;Entrada;20000
+Tornado, seguridad 1;32;evitar accidentes y robos;seguridad alto;null;null
+Tornado, seguridad 2;32;evitar accidentes y robos;seguridad alto;null;null
+The Big Red Dragon, ventas;40;vender entradas;null;Entrada;25000
+The Big Red Dragon, informacion;40;dar información;guia turistico;null;null
+The Big Red Dragon, seguridad 1;40;evitar accidentes y robos;seguridad alto;null;null
+The Big Red Dragon, seguridad 2;40;evitar accidentes y robos;seguridad alto;null;null
+Terremoto, ventas;41;vender entradas;null;Entrada;25000
+Terremoto, seguridad;41;evitar accidentes y robos;seguridad alto;null;null
+El Tren Maya, ventas;21;vender entradas;null;Entrada;15000
+El Tren Maya, seguridad;21;evitar accidentes y robos;seguridad alto;null;null
+Las Torres Gemelas, ventas;78;vender entradas;null;Entrada;20000
+Las Torres Gemelas, seguridad 1;78;evitar accidentes y robos;seguridad alto;null;null
+Las Torres Gemelas, seguridad 2;78;evitar accidentes y robos;seguridad alto;null;null
+fin

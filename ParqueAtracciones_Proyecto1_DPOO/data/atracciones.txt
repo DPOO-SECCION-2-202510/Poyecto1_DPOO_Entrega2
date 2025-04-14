@@ -1,0 +1,13 @@
+Cultural
+Tour botanico;25;Familiar;57;Primavera;4;null;0
+Acuarium;15;Familiar;58;Todo año;3;null;7
+Observatorio Intergalactic;20;Diamante;59;Todo año;2;null;10
+Danza India;30;Oro;89;Verano;2;Lluvia;10
+El Domo;25;Diamante;90;Todo año;3;null;15
+Mecanica
+Tornado;20;Oro;32;Todo año;3;null;100;250;30;100;Corazon;Medio
+The Big Red Dragon;15;Diamante;40;Todo año;4;Lluvia;100;250;30;100;Corazon;Alto
+Terremoto;20;Diamente;41;Todo año;2;null;0;250;0;200;null;Medio
+El Tren Maya;30;Familiar;21;Todo año;2;null;0;200;0;200;null;Bajo
+Las Torres Gemelas;15;Oro;78;Todo año;3;Lluvia;120;230;30;100;Corazon;Alto
+fin

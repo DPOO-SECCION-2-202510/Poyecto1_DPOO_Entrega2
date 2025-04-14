@@ -1,0 +1,5 @@
+Restaurante;120;cocinar;manejo de alimentos;pan,queso,torta;1000,2000,3000
+Cafe;125;cocinar;manejo de alimentos;pan,cafe,torta;1000,2000,3000
+Banos;130;limpiar los banos;null;null;null
+Tienda;150;vender en la tienda;null;papas,gomitas,llaveros,camiseta;1000,2000,3000,4000
+fin

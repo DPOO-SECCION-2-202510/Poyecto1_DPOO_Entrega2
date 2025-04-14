@@ -1,0 +1,5 @@
+Concierto Jazz;Concierto con las mejores obras de Jazz en vivo;null;null;90;2025:4:24:18:0,2025:4:25:18:0,2025:4:26:20:0;203,39,53
+Fiesta fin año;Fiesta de celebracionn de fin de año, incluye coctel;null;null;360;2025:12:12:10:0;203
+Desfile nocturno;Desfile con nuestros mejores personajes durante la hora de la noche;Lluvia;Verano;90;2025:7:24:18:0,2025:7:25:18:0,2025:7:26:20:0;203,39,53
+Circo;Circo al aire libre;Lluvia;null;90;2025:5:24:18:0,2025:5:25:18:0,2025:5:26:20:0;203,39,53
+fin

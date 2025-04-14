@@ -1,0 +1,20 @@
+Tiquetes
+Tipo;ValorDia;ValorSemana;ValorMes;ValorAnio
+Basico;25000
+Familiar;50000;350000;1050000;10500000
+Oro;100000;600000;1800000;18000000
+Diamante;150000;900000;2700000;27000000
+Entradas
+Attraccion;Valor
+Tour botanico;15000
+Acuarium;15000
+Observatorio Intergalactic;25000
+Danza India;20000
+El Domo;25000
+Tornado;20000
+The Big Red Dragon;25000
+Terremoto;25000
+El Tren Maya;15000
+Las Torres Gemelas;20000
+FastPass
+150000

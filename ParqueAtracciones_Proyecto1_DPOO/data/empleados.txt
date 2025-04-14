@@ -1,0 +1,31 @@
+Pepe;1233745;guia turistico
+Pepito;2344756;seguridad medio
+Pepa;3455677;null
+Pepita;0004;manejo de alimentos
+Juan;2345345;manejo de alimentos
+Pablo;3456756;guia turistico
+Andres;9485736;seguridad medio
+Sara;0958473;seguridad medio
+Claudia;3749957;seguridad medio
+Diana;2739485;seguridad medio
+Sandra;39842783;seguridad alto
+Marta;3849374;seguridad alto
+Alvaro;39847572;guia turistico
+Esteban;3984737;guia turistico
+Santiago;4857485;null
+Mariana;3948597;seguridad alto
+Marian;2938340;seguridad alto
+Adriana;1029837;guia turistico
+Jaime;2839047;null
+Javier;4738469;null
+Oscar;9508473;null
+Perez;2993847;null
+Sanchez;8884952;null
+Marcelo;3784762;null
+Marcela;4836628;seguridad alto
+Marta Claudia;1928237;seguridad alto
+Marta Patricia;2983747;seguridad alto
+Marto Patricio;3849582;null
+Ya no se;2937473;seguridad alto
+Esto es dificil;3094856;null
+fin
