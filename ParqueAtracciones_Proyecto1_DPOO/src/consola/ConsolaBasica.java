@@ -34,24 +34,6 @@ public class ConsolaBasica {
 	
     public static void correrAplicacion(int cual, int opcion) throws IOException, ExceptionConstrasenaIncorrecta, ExceptionUsuarioNoExiste, ExceptionUsuarioYaExiste, ExceptionInputIncorrecto, ExceptionInfoNotFound
     {
-    	ArrayList<HashMap<String, Integer>> precios = new ArrayList<HashMap<String, Integer>>();
-		HashMap<String, Integer> tiquete = new HashMap<String, Integer>();
-		HashMap<String, Integer> entrada = new HashMap<String, Integer>();
-		HashMap<String, Integer> fastPass = new HashMap<String, Integer>();
-		precios.add(tiquete);
-		precios.add(entrada);
-		precios.add(fastPass);
-    	precios = PersistenciaBasica.cargarPrecios(precios);
-    	parque = new ParqueAtraccion(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
-    	HashMap<ArrayList<AtraccionCultural>,ArrayList<AtraccionMecanica>> atracciones = PersistenciaBasica.cargarAtraccion(parque);
-    	ArrayList<AtraccionCultural> cultural = null;
-    	ArrayList<AtraccionMecanica> meca=null;
-    	for(ArrayList<AtraccionCultural> cult: atracciones.keySet()) {
-    		cultural = cult;
-    		meca = atracciones.get(cult);
-    	}
-    	ArrayList<Espectaculo> espe = PersistenciaBasica.cargarEspectaculo(parque);
-    	parque.añadirAtracciones(cultural, meca, espe);
     	boolean correr = true;
     	while(correr == true) {
 	    	input = new Scanner(System.in);
@@ -77,8 +59,13 @@ public class ConsolaBasica {
 		    		ConsolaEmpleado consola = new ConsolaEmpleado(emple);	
 	    			consola.empezarConsola();
 		    	}
+		    	cual = pedirOpcion(1, 3, "Ingrese 1 para iniciar sesion, 2 para crear sesion, 3 para parar la aplicacion");
+		    	opcion = pedirOpcion(1, 3, "Ingrese tipo de entrada: (1 - como cliente, 2 - como administrador, 3 - como empleado");
+		    	if (cual == 3) {
+		    		correr = false;
+		    	}
 	    	}else if (cual==2){
-	    		System.out.print("Informacion personal n/");
+	    		System.out.print("Informacion personal \n");
 	    		input = new Scanner(System.in);
 	    		System.out.print("Ingrese su nombre: ");
 	    		String nombre = input.next();
@@ -102,11 +89,16 @@ public class ConsolaBasica {
 	    			ConsolaEmpleado consola = new ConsolaEmpleado(emple);	
 	    			consola.empezarConsola();
 	    		}
+	    		cual = pedirOpcion(1, 3, "Ingrese 1 para iniciar sesion, 2 para crear sesion, 3 para parar la aplicacion");
+		    	opcion = pedirOpcion(1, 3, "Ingrese tipo de entrada: (1 - como cliente, 2 - como administrador, 3 - como empleado");
+		    	if (cual == 3) {
+		    		correr = false;
+		    	}
 	    	}else {
 	    		correr = false;
 	    	}
-	    	cual = pedirOpcion(1, 3, "Ingrese 1 para iniciar sesion, 2 para crear sesion, 3 para parar la aplicacion");
-	    	opcion = pedirOpcion(1, 3, "Ingrese tipo de entrada: (1 - como cliente, 2 - como administrador, 3 - como empleado");
+	    	
+	    	
     	}
     }
     
@@ -115,7 +107,7 @@ public class ConsolaBasica {
     	System.out.print(mensaje);
     	int number = input.nextInt();
     	if (number > mayor || number<menor) {
-    		System.out.print("Tan chistoso...n/");
+    		System.out.print("Tan chistoso...\n");
     		number = pedirOpcion(menor,mayor, mensaje);
     	}
     	return number;
@@ -127,6 +119,24 @@ public class ConsolaBasica {
     	System.out.print("Bienvenidos al parque de diversiones!!");
     	int cual = pedirOpcion(1, 2, "Ingrese 1 para iniciar sesion, 2 para crear sesion");
     	int number = pedirOpcion(1, 3, "Ingrese tipo de entrada: (1 - como cliente, 2 - como administrador, 3 - como empleado");
+    	ArrayList<HashMap<String, Integer>> precios = new ArrayList<HashMap<String, Integer>>();
+		HashMap<String, Integer> tiquete = new HashMap<String, Integer>();
+		HashMap<String, Integer> entrada = new HashMap<String, Integer>();
+		HashMap<String, Integer> fastPass = new HashMap<String, Integer>();
+		precios.add(tiquete);
+		precios.add(entrada);
+		precios.add(fastPass);
+    	precios = PersistenciaBasica.cargarPrecios(precios);
+    	parque = new ParqueAtraccion(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
+    	HashMap<ArrayList<AtraccionCultural>,ArrayList<AtraccionMecanica>> atracciones = PersistenciaBasica.cargarAtraccion(parque);
+    	ArrayList<AtraccionCultural> cultural = null;
+    	ArrayList<AtraccionMecanica> meca=null;
+    	for(ArrayList<AtraccionCultural> cult: atracciones.keySet()) {
+    		cultural = cult;
+    		meca = atracciones.get(cult);
+    	}
+    	ArrayList<Espectaculo> espe = PersistenciaBasica.cargarEspectaculo(parque);
+    	parque.añadirAtracciones(cultural, meca, espe);
         correrAplicacion(cual, number);
         
     }

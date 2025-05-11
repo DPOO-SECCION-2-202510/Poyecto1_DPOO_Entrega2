@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDateTime;
 import cliente.Cliente;
-import financiero.Taquilla;
-import financiero.CajaVirtual;
+import financiero.GenTiquetes;
 import empleado.Empleado;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
@@ -29,9 +28,9 @@ public class ParqueAtraccion {
 	
 	private int utilidad;
 	
-	private Taquilla taquilla;
+	private GenTiquetes taquilla;
 	
-	private CajaVirtual cajeroVirtual;
+	private GenTiquetes cajeroVirtual;
 	
 	private ArrayList<AtraccionCultural> cultural;
 	
@@ -44,8 +43,8 @@ public class ParqueAtraccion {
 		this.administradores = new HashMap<String, Admin>();
 		this.clientes = new HashMap<String, Cliente>();
 		this.utilidad = 0;
-		this.taquilla = new Taquilla(tiquetes, entradas,  fastPass, 0);
-		this.cajeroVirtual = new CajaVirtual(tiquetes, entradas,  fastPass, 0);
+		this.taquilla = new GenTiquetes(tiquetes, entradas,  fastPass, 0);
+		this.cajeroVirtual = new GenTiquetes(tiquetes, entradas,  fastPass, 0);
 		this.espacios = espacios;
 	}
 	
@@ -57,7 +56,7 @@ public class ParqueAtraccion {
 	
 	
 	
-	public CajaVirtual getCajaVirtual() {
+	public GenTiquetes getCajaVirtual() {
 		return cajeroVirtual;
 	}
 	
@@ -228,6 +227,16 @@ public class ParqueAtraccion {
 			}
 		}
 		Empleado empleado = menor.anadirEmpleado(usuario, contra, nombre, codigo, capacitacion);
+		ArrayList<Trabajo> trabajos = menor.getTrabajosSinAsignar();
+		boolean asignado = false;
+		for (Trabajo tr: trabajos) {
+			if (tr.getCapaciacion() == capacitacion & asignado == false) {
+				LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
+				LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
+				menor.asignarTrabajo(tr, empleado, ini);
+				menor.asignarTrabajo(tr, empleado, fin);
+			}
+		}
 	    return empleado;
 	}
 	

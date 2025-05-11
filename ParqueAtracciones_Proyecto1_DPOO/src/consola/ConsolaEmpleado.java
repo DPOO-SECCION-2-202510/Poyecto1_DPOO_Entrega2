@@ -37,9 +37,11 @@ public class ConsolaEmpleado {
 				verInfoTrabajo();
 			}else if (opcion ==4) {
 				cambiarSenha();
-			}else if (opcion ==6) {
-				revisarTurno();
 			}else if (opcion ==5) {
+				revisarTurno();
+			}else if (opcion ==6) {
+				registrarVenta();
+			}else if(opcion ==7) {
 				correr = false;
 			}
 		}
@@ -52,13 +54,14 @@ public class ConsolaEmpleado {
 		System.out.print("3 - Ver informacion de un trabajo\n");
 		System.out.print("4 - Cambiar tu contraseña\n");
 		System.out.print("5 - Revisar si tiene turno a cierta hora\n");
-		System.out.print("6 - Cerrar sesion\n");
+		System.out.print("6 - Registrar venta\n");
+		System.out.print("7 - Cerrar sesion\n");
 		input = new Scanner(System.in);
 		if (input.hasNextInt()==false) {
 			throw new ExceptionInputIncorrecto("Por favor poner la fecha en formato (aaaa/mm/dd).");
 		}
 		int numero = input.nextInt();
-		if (numero <0 || numero>7) {
+		if (numero <0 || numero>8) {
 			numero = menu();
 		}
 		return numero;
@@ -114,6 +117,16 @@ public class ConsolaEmpleado {
 		}else {
 			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
 		}
+	}
+	
+	private static void registrarVenta() {
+		System.out.print("Ingrese el nombre del producto: ");
+		String producto = input.next();
+		System.out.print("Ingrese las cantidades: ");
+		int cantidad = input.nextInt();
+		Trabajo tr = emple.trabajoEnHora(LocalDateTime.now());
+		tr.vender(producto, cantidad);
+		
 	}
 	
 	private static void cambiarSenha() {

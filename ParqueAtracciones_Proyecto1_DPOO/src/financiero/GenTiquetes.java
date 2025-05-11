@@ -1,11 +1,13 @@
 package financiero;
+
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 
-public class Taquilla {
-
+public class GenTiquetes {
+	
+	
 	private int caja;
 	
 	private HashMap<Integer, Tiquete> tiquetesVendidos;
@@ -24,7 +26,7 @@ public class Taquilla {
 	
 	
 	
-	public Taquilla(HashMap<String, Integer> precioTiquetes, HashMap<String, Integer> precioEntradas, int precioFastPass, int caja) {
+	public GenTiquetes(HashMap<String, Integer> precioTiquetes, HashMap<String, Integer> precioEntradas, int precioFastPass, int caja) {
 		this.caja = caja;
 		this.precioEntradas = precioEntradas;
 		this.precioTiquetes = precioTiquetes;
@@ -34,10 +36,10 @@ public class Taquilla {
 		this.fastPassVendidos = new HashMap<Integer, FastPass>();
 	}
 	
+	
 	public int getCaja() {
 		return caja;
 	}
-	
 	
 	
 	
