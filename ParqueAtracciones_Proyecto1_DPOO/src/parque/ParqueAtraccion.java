@@ -19,6 +19,7 @@ import exceptions.ExceptionConstrasenaIncorrecta;
 import exceptions.ExceptionUsuarioNoExiste;
 import exceptions.ExceptionUsuarioYaExiste;
 import exceptions.ExceptionInfoNotFound;
+import cliente.ClienteBuilder;
 
 
 public class ParqueAtraccion {
@@ -42,6 +43,7 @@ public class ParqueAtraccion {
 	private ArrayList<Espectaculo> espectaculos;
 	
 	public Ingreso ingreso;
+	
 
 	
 	public ParqueAtraccion(ArrayList<Espacio> espacios, HashMap<String, Integer> tiquetes, HashMap<String, Integer> entradas, int fastPass) {
@@ -191,13 +193,20 @@ public class ParqueAtraccion {
 	}
 	
 	
-	public Cliente crearCliente(String usuario, String contra, String nombre, int id) throws ExceptionUsuarioYaExiste{
+	public Cliente crearCliente(String usuario, String contra, String nombre, int id, int peso, int alt, int edad, String salud) throws ExceptionUsuarioYaExiste{
 		for (String existentes: clientes.keySet()) {
 			if (existentes.contains(usuario)) {
 				throw new ExceptionUsuarioYaExiste("El nombre de usuario ya existe, intente de nuevo");
 			}
 		}
-		Cliente cliente = new Cliente(nombre, id);
+		ClienteBuilder nuevo = new ClienteBuilder();
+		nuevo.setAltura(alt);
+		nuevo.setEdad(edad);
+		nuevo.setId(id);
+		nuevo.setName(nombre);
+		nuevo.setPeso(peso);
+		nuevo.setSalud(salud);
+		Cliente cliente = nuevo.getNuevo();
 		String llave = usuario+";"+contra;
 		clientes.put(llave, cliente);
 		return cliente;

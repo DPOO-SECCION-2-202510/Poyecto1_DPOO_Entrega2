@@ -72,7 +72,35 @@ public class ConsolaBasica {
 	    		String nombre = input.next();
 	    		int id = pedirOpcion(100000, 999999999, "Ingrese su numero de identificacion (cedula): ");
 	    		if (opcion ==1) {
-	    			Cliente cliente = parque.crearCliente(usuario, contra, nombre, id);
+	    			System.out.print("Desea ingresar su peso: ");
+	    			String peso1 = input.next();
+	    	    	int peso = 0;
+	    	    	if (peso1=="si") {
+	    	    		System.out.print("Ingrese su peso: ");
+	    	    		peso = input.nextInt();
+	    	    	}
+	    	    	System.out.print("Desea ingresar su altura: ");
+	    	    	String alt1 = input.next();
+	    	    	int alt = 0;
+	    	    	if (alt1=="si") {
+	    	    		System.out.print("Ingrese su altura: ");
+	    	    		alt = input.nextInt();
+	    	    	}
+	    	    	System.out.print("Desea ingresar su edad: ");
+	    	    	String edad1 = input.next();
+	    	    	int edad = 0;
+	    	    	if (edad1=="si") {
+	    	    		System.out.print("Ingrese su edad: ");
+	    	    		edad = input.nextInt();
+	    	    	}
+	    	    	System.out.print("Desea ingresar datos de salud: ");
+	    	    	String salud1 = input.next();
+	    	    	String salud = null;
+	    	    	if (salud1=="si") {
+	    	    		System.out.print("Ingrese sus datos de salud separados por una , : ");
+	    	    		salud = input.next();
+	    	    	}
+	    			Cliente cliente = parque.crearCliente(usuario, contra, nombre, id, peso, alt, edad, salud);
 	    			ConsolaCliente consola = new ConsolaCliente(cliente, parque);
 	    			consola.empezarConsola();
 	    		} else if (opcion ==2) {

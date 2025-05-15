@@ -17,6 +17,10 @@ public class ClienteBuilder implements IBuilder{
 	private ArrayList<String> salud;
 
 
+	public ClienteBuilder() {
+		
+	}
+	
 	@Override
 	public void setName(String nombre) {
 		this.nombre = nombre;
