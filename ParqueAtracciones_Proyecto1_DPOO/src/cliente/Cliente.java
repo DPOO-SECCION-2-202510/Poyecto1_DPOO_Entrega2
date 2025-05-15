@@ -11,6 +11,14 @@ public class Cliente {
 	
 	private int identificacion;
 	
+	private int peso;
+	
+	private int alt;
+	
+	private int edad;
+	
+	private ArrayList<String> salud;
+	
 	private LinkedList<Tiquete> tiquetes;
 	
 	private LinkedList<Entrada> entradas;
@@ -19,9 +27,13 @@ public class Cliente {
 	
 	
 	
-	public Cliente(String nombre, int id){
+	public Cliente(String nombre, int id, int peso, int alt, int edad, ArrayList<String> salud){
 		this.nombre = nombre ;
 		this.identificacion = id;
+		this.peso=peso;
+		this.alt = alt;
+		this.edad = edad;
+		this.salud = salud;
 		this.tiquetes = new LinkedList<Tiquete>() ;
 		this.entradas = new LinkedList<Entrada>();
 		this.fastPass = new LinkedList<FastPass>();
@@ -34,6 +46,22 @@ public class Cliente {
 	
 	public int getId() {
 		return identificacion;
+	}
+	
+	public int getPeso() {
+		return peso;
+	}
+	
+	public int getAlt() {
+		return edad;
+	}
+	
+	public int getEdad() {
+		return edad;
+	}
+	
+	public ArrayList<String> getSalud(){
+		return salud;
 	}
 	
 	public void anadirTiq(Tiquete tiq) {

@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import administrador.Admin;
 import empleado.Empleado;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
 import empleado.TrabajoEspectaculo;
 import exceptions.ExceptionInputIncorrecto;
-import parque.Admin;
 
 public class ConsolaAdmin {
 	
@@ -109,7 +109,7 @@ public class ConsolaAdmin {
 	
 	
 	private static void cargarTrabajadores() {
-		admin.cargarEmpleados();
+		admin.mover.cargarEmpleados();
 		System.out.print("Se han cargado los empleados exitosamente.\n");
 	}
 	
@@ -139,7 +139,7 @@ public class ConsolaAdmin {
 		System.out.print("Ingrese el nivel de capacitacion del empleado: ");
 		input = new Scanner(System.in);
 		String nivel = input.next();
-		admin.anadirEmpleado(usua, contra, nombre, id, nivel);
+		admin.mover.anadirEmpleado(usua, contra, nombre, id, nivel);
 	}
 	
 	
@@ -221,21 +221,19 @@ public class ConsolaAdmin {
 			System.out.print("No se ha encontrado un trabajo con ese servicio/n");
 		}else if (cual=="general") {
 			Trabajo tr = admin.getTrabajoGen(trabajo);
-			admin.asignarTrabajo(tr, emple, hora);
+			admin.asignar.asignarTrabajo(tr, emple, hora);
 		}else if (cual=="atraccion") {
 			TrabajoAtraccion tr = admin.getTrabajoA(trabajo);
-			admin.asignarTrabajo(tr, emple, hora);
+			admin.asignar.asignarTrabajo(tr, emple, hora);
 		}else {
 			TrabajoEspectaculo tr = admin.getTrabajoEsp(trabajo);
-			admin.asignarTrabajo(tr, emple, hora);
+			admin.asignar.asignarTrabajo(tr, emple, hora);
 		}
 	}
 	
 	private static void asignarTurnos() {
 		int antes = admin.getTurnosAsignados();
-		admin.asignarTrabajosGenerales();
-		admin.asignarTrabajosEspectaculo();
-		admin.asignarTrabajosAtraccion();
+		admin.asignar.asignarTodos();
 		int nuevo= admin.getTurnosAsignados();
 		nuevo = nuevo-antes;
 		System.out.print("Se han asignado "+nuevo+" tunos.\n");

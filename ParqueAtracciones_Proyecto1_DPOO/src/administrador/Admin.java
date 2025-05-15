@@ -1,4 +1,4 @@
-package parque;
+package administrador;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.IOException;
@@ -28,12 +28,14 @@ public class Admin {
 	
 	private HashMap<String, Trabajo> turnosCierre;
 	
+	public AsignarTrabajo asignar;
+	
+	public MoverEmpleado mover;
+	
 	
 	public Admin(String nombre, int id, ArrayList<Trabajo> trabajosGeneral, ArrayList<TrabajoAtraccion> atracciones, ArrayList<TrabajoEspectaculo> espectaculos) {
 		this.empleados = new HashMap<String, ArrayList<Empleado>>();
 		//poner una lista por nivel de capacitacion;
-		this.turnosApertura = new HashMap<String, Trabajo>();
-		this.turnosCierre = new HashMap<String, Trabajo>();
 		HashMap<String, ArrayList<Trabajo>> trabajosGenerales = getMapaCapacitacion(trabajosGeneral);
 		HashMap<String, ArrayList<TrabajoAtraccion>> atraccion = getMapaCapacitacionA(atracciones);
 		HashMap<String, ArrayList<TrabajoEspectaculo>> espectaculo = getMapaCapacitacionB(espectaculos);
@@ -42,6 +44,10 @@ public class Admin {
 		this.trabajosGenerales = trabajosGenerales;
 		this.nombre = nombre;
 		this.id = id;
+		this.asignar = new AsignarTrabajo(empleados, atraccion, espectaculo, trabajosGenerales);
+		this.mover = new MoverEmpleado(empleados, nombre);
+		this.turnosApertura = asignar.turnosApertura;
+		this.turnosCierre = asignar.turnosCierre;
 	}
 	
 	
@@ -201,147 +207,9 @@ public class Admin {
 	}
 	
 	
-	public void cargarEmpleados() {
-		PersistenciaParqueAtracciones cargador = new PersistenciaParqueAtracciones();
-		try {
-			empleados = cargador.cargarEmpleados(empleados, nombre);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	
-	public Empleado anadirEmpleado(String usuario, String contra, String nombreE, int codigo, String capacitacion) {
-		Empleado empleado = new Empleado(usuario,contra,nombreE, codigo, capacitacion, nombre);
-		if(empleados.containsKey(capacitacion)) {
-			empleados.get(capacitacion).add(empleado);
-		}else {
-			ArrayList<Empleado> nueva = new ArrayList<Empleado>();
-			nueva.add(empleado);
-			empleados.put(capacitacion, nueva);
-		}
-		return empleado;
-	}
-	
-	public void eliminarEmpleado(Empleado empleado) {
-		for (ArrayList<Empleado> porNivel: empleados.values()) {
-			if (porNivel.contains(empleado)) {
-				porNivel.remove(empleado);
-			}
-		}
-	}
-	
-	
-	public void asignarTrabajo(Trabajo trabajo, Empleado empleado, LocalDateTime turno) {
-		if (turno.getHour()==16) {
-			turnosCierre.put(empleado.getNombre(), trabajo);
-		} else {
-			turnosApertura.put(empleado.getNombre(), trabajo);
-		}
-		empleado.anadirTrabajo(turno, trabajo);
-	}
-	
-	
-	public void asignarTrabajosGenerales() {
-		for (String nivel: empleados.keySet()) {
-			if (trabajosGenerales.containsKey(nivel)) {
-				ArrayList<Trabajo> trabajosDisponibles = trabajosGenerales.get(nivel);
-				for (Trabajo trabajo: trabajosDisponibles) {
-					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
-					boolean encontradoA =false;
-					boolean encontradoB =false;
-					while (encontradoA == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
-							asignarTrabajo(trabajo, empleado, ini);
-							encontradoA = true;
-						} 
-						n=n+1;
-					}
-					n=0;
-					while (encontradoB == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
-							asignarTrabajo(trabajo, empleado, fin);
-							encontradoB = true;
-						}
-						n=n+1;
-					}
-				}
-			}
-		}
-	}
-	
-	
-	public void asignarTrabajosEspectaculo() {
-		for (String nivel: empleados.keySet()) {
-			if (trabajosEspectaculo.containsKey(nivel)) {
-				ArrayList<TrabajoEspectaculo> trabajosDisponibles = trabajosEspectaculo.get(nivel);
-				for (TrabajoEspectaculo trabajo: trabajosDisponibles) {
-					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
-					boolean encontradoA =false;
-					boolean encontradoB =false;
-					while (encontradoA == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
-							asignarTrabajo(trabajo, empleado, ini);
-							encontradoA = true;
-						}
-						n=n+1;
-					}
-					n=0;
-					while (encontradoB == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
-							asignarTrabajo(trabajo, empleado, fin);
-							encontradoB = true;
-						} 
-						n=n+1;
-					}
-				}
-			}
-		}
-	}
-	
-	
-	public void asignarTrabajosAtraccion() {
-		for (String nivel: empleados.keySet()) {
-			if (trabajosAtraccion.containsKey(nivel)) {
-				ArrayList<TrabajoAtraccion> trabajosDisponibles = trabajosAtraccion.get(nivel);
-				for (TrabajoAtraccion trabajo: trabajosDisponibles) {
-					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
-					boolean encontradoA =false;
-					boolean encontradoB =false;
-					while (encontradoA == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
-							asignarTrabajo(trabajo, empleado, ini);
-							trabajo.getAtraccion().masEmpleado(empleado);
-							encontradoA = true;
-						}
-						n=n+1;
-					}
-					n=0;
-					while (encontradoB == false && n< empleados.get(nivel).size()) {
-						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
-							asignarTrabajo(trabajo, empleado, fin);
-							trabajo.getAtraccion().masEmpleado(empleado);
-							encontradoB = true;
-						}
-						n=n+1;
-					}
-				}
-			}
-		}
-	}
 	
 	
 	private HashMap<String, ArrayList<Trabajo>>  getMapaCapacitacion(ArrayList<Trabajo> listaTrabajos){

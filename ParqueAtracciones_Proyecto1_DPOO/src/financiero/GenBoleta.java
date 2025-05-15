@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
-public class GenTiquetes {
+public class GenBoleta {
 	
 	
 	private int caja;
@@ -26,7 +26,7 @@ public class GenTiquetes {
 	
 	
 	
-	public GenTiquetes(HashMap<String, Integer> precioTiquetes, HashMap<String, Integer> precioEntradas, int precioFastPass, int caja) {
+	public GenBoleta(HashMap<String, Integer> precioTiquetes, HashMap<String, Integer> precioEntradas, int precioFastPass, int caja) {
 		this.caja = caja;
 		this.precioEntradas = precioEntradas;
 		this.precioTiquetes = precioTiquetes;

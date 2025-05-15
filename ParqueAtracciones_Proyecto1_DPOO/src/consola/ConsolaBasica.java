@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import administrador.Admin;
 import cliente.Cliente;
-import parque.Admin;
 import empleado.Empleado;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;

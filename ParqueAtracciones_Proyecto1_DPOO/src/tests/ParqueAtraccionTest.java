@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import administrador.Admin;
 import cliente.Cliente;
 import empleado.Empleado;
 import empleado.Trabajo;
@@ -26,7 +27,6 @@ import juegos.Espectaculo;
 import parque.ParqueAtraccion;
 import persistencia.PersistenciaParqueAtracciones;
 import persistencia.PersistenciaBasica;
-import parque.Admin;
 import parque.Espacio;
 
 class ParqueAtraccionTest {
@@ -64,12 +64,10 @@ class ParqueAtraccionTest {
 
 	@Test
 	void testAdmin() throws IOException {
-		admin.cargarEmpleados();
+		admin.mover.cargarEmpleados();
 		assertEquals(admin.getNumEmpleados(), 30,"No se cargaron los trabajos correctamente");
 		assertEquals(admin.getEmpleado("Sandra").getCodigo(), 39842783,"No se encuentra el empleado con la informacion correcta");
-		admin.asignarTrabajosAtraccion();
-		admin.asignarTrabajosEspectaculo();
-		admin.asignarTrabajosGenerales();
+		admin.asignar.asignarTodos();
 		assertEquals(admin.getTrabajosSinAsignar().size(), 6,"No se asignaron los trabajos correctamente");
 		assertEquals(admin.getTurnosApertura().size(), admin.getTurnosCierre().size(), "no se asignaron los turnos por hora correctamnete");
 	}
@@ -81,9 +79,7 @@ class ParqueAtraccionTest {
 		Espectaculo esp = parque.getEspectaculo("Concierto Jazz");
 		assertEquals(mecan.getExclusividad(),"Diamante","No se encuentran los datos correctos");
 		assertEquals(esp.getDescripcion(),"Concierto con las mejores obras de Jazz en vivo","No se encuentran los datos correctos");
-		admin.asignarTrabajosAtraccion();
-		admin.asignarTrabajosEspectaculo();
-		admin.asignarTrabajosGenerales();
+		admin.asignar.asignarTodos();
 		assertEquals(mecan.getFuncionando(),true,"No reconoce los trabajores por puesto");
 		assertEquals(mecan.getFuncionando("Lluvia"),false,"No reconoce las restricciones por clima");
 		

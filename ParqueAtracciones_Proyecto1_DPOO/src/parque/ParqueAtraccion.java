@@ -1,9 +1,12 @@
 package parque;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import administrador.Admin;
+
 import java.time.LocalDateTime;
 import cliente.Cliente;
-import financiero.GenTiquetes;
+import financiero.GenBoleta;
 import empleado.Empleado;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
@@ -28,24 +31,27 @@ public class ParqueAtraccion {
 	
 	private int utilidad;
 	
-	private GenTiquetes taquilla;
+	private GenBoleta taquilla;
 	
-	private GenTiquetes cajeroVirtual;
+	private GenBoleta cajeroVirtual;
 	
 	private ArrayList<AtraccionCultural> cultural;
 	
 	private ArrayList<AtraccionMecanica> mecanicas;
 	
 	private ArrayList<Espectaculo> espectaculos;
+	
+	public Ingreso ingreso;
 
 	
 	public ParqueAtraccion(ArrayList<Espacio> espacios, HashMap<String, Integer> tiquetes, HashMap<String, Integer> entradas, int fastPass) {
 		this.administradores = new HashMap<String, Admin>();
 		this.clientes = new HashMap<String, Cliente>();
 		this.utilidad = 0;
-		this.taquilla = new GenTiquetes(tiquetes, entradas,  fastPass, 0);
-		this.cajeroVirtual = new GenTiquetes(tiquetes, entradas,  fastPass, 0);
+		this.taquilla = new GenBoleta(tiquetes, entradas,  fastPass, 0);
+		this.cajeroVirtual = new GenBoleta(tiquetes, entradas,  fastPass, 0);
 		this.espacios = espacios;
+		this.ingreso = new Ingreso();
 	}
 	
 	public void añadirAtracciones(ArrayList<AtraccionCultural> cult, ArrayList<AtraccionMecanica> meca, ArrayList<Espectaculo> espe) {
@@ -56,7 +62,7 @@ public class ParqueAtraccion {
 	
 	
 	
-	public GenTiquetes getCajaVirtual() {
+	public GenBoleta getCajaVirtual() {
 		return cajeroVirtual;
 	}
 	
@@ -226,15 +232,15 @@ public class ParqueAtraccion {
 				throw new ExceptionUsuarioYaExiste("El nombre de usuario ya existe, intente de nuevo");
 			}
 		}
-		Empleado empleado = menor.anadirEmpleado(usuario, contra, nombre, codigo, capacitacion);
+		Empleado empleado = menor.mover.anadirEmpleado(usuario, contra, nombre, codigo, capacitacion);
 		ArrayList<Trabajo> trabajos = menor.getTrabajosSinAsignar();
 		boolean asignado = false;
 		for (Trabajo tr: trabajos) {
 			if (tr.getCapaciacion() == capacitacion & asignado == false) {
 				LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
 				LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
-				menor.asignarTrabajo(tr, empleado, ini);
-				menor.asignarTrabajo(tr, empleado, fin);
+				menor.asignar.asignarTrabajo(tr, empleado, ini);
+				menor.asignar.asignarTrabajo(tr, empleado, fin);
 			}
 		}
 	    return empleado;

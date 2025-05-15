@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import parque.Espacio;
 import empleado.Empleado;
 
-public class Atraccion {
+public class Atraccion implements IGetJuego{
 	
 	protected String nombre;
 
@@ -36,6 +36,10 @@ public class Atraccion {
 		this.minEmpleados = minEmpleados;
 		this.funcionando = false;
 		this.empleados = new HashMap<String, Empleado>();
+	}
+	
+	public String getInfo() {
+		return null;
 	}
 	
 	
@@ -92,7 +96,6 @@ public class Atraccion {
 		}
 		return funcionando;
 	}
-
 
 	
 	public void masEmpleado(Empleado empl) {
