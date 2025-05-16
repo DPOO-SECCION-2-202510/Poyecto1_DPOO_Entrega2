@@ -254,8 +254,6 @@ public final class ParqueAtraccion {
 		ArrayList<Trabajo> trabajos = menor.getTrabajosSinAsignar();
 		boolean asignado = false;
 		for (Trabajo tr: trabajos) {
-			System.out.print(tr.getCapaciacion()+"\n");
-			System.out.print(capacitacion+"\n");
 			if (tr.getCapaciacion().contentEquals(capacitacion)  & asignado == false) {
 				LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
 				LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);

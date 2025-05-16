@@ -1,5 +1,6 @@
 package consola;
 import parque.ParqueAtraccion;
+import persistencia.Previos;
 import persistencia.PersistenciaParqueAtracciones;
 import persistencia.PersistenciaBasica;
 import java.io.IOException;
@@ -166,6 +167,11 @@ public class ConsolaBasica {
     	}
     	ArrayList<Espectaculo> espe = PersistenciaBasica.cargarEspectaculo(parque);
     	parque.añadirAtracciones(cultural, meca, espe);
+    	Previos.cargarEmpleadoPrevio(parque);
+    	ArrayList<Trabajo> trabajosGeneral = PersistenciaBasica.cargarTrabajos(parque);
+		ArrayList<TrabajoAtraccion> tatracciones = PersistenciaBasica.cargarTrabajosA(parque);
+		ArrayList<TrabajoEspectaculo> espectaculos = PersistenciaBasica.cargarTrabajosE(parque);
+    	Previos.cargarAdminPrevio(parque, trabajosGeneral, tatracciones, espectaculos);
         correrAplicacion(cual, number);
         
     }

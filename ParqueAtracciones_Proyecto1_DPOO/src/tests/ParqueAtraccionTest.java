@@ -18,6 +18,8 @@ import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
 import empleado.TrabajoEspectaculo;
 import exceptions.ExceptionInfoNotFound;
+import exceptions.ExceptionUsuarioNoExiste;
+import exceptions.ExceptionUsuarioYaExiste;
 import financiero.Entrada;
 import financiero.FastPass;
 import financiero.Tiquete;
@@ -37,7 +39,7 @@ class ParqueAtraccionTest {
 	private static Admin admin;
 	
 	@BeforeAll
-	public static void cargarTodo() throws IOException {
+	public static void cargarTodo() throws IOException, ExceptionUsuarioYaExiste {
 		ArrayList<HashMap<String, Integer>> precios = new ArrayList<HashMap<String, Integer>>();
 		HashMap<String, Integer> tiquete = new HashMap<String, Integer>();
 		HashMap<String, Integer> entrada = new HashMap<String, Integer>();
@@ -56,7 +58,7 @@ class ParqueAtraccionTest {
     	}
     	ArrayList<Espectaculo> espe = PersistenciaBasica.cargarEspectaculo(parque);
     	parque.añadirAtracciones(cultural, meca, espe);
-        admin = new Admin("juan", 333271, PersistenciaBasica.cargarTrabajos(parque), PersistenciaBasica.cargarTrabajosA(parque), PersistenciaBasica.cargarTrabajosE(parque));
+    	admin = parque.crearAdmin("usuario", "contra", "juan", 333271, PersistenciaBasica.cargarTrabajos(parque), PersistenciaBasica.cargarTrabajosA(parque), PersistenciaBasica.cargarTrabajosE(parque));
 	}
 	
 	
@@ -74,15 +76,19 @@ class ParqueAtraccionTest {
 	}
 	
 	@Test
-	void testInfoCargo() throws ExceptionInfoNotFound {
+	void testInfoCargo() throws ExceptionInfoNotFound, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
 		Atraccion meca = parque.getAtraccion("The Big Red Dragon");
 		AtraccionMecanica mecan= (AtraccionMecanica) meca;
 		Espectaculo esp = parque.getEspectaculo("Concierto Jazz");
 		assertEquals(mecan.getExclusividad(),"Diamante","No se encuentran los datos correctos");
 		assertEquals(esp.getDescripcion(),"Concierto con las mejores obras de Jazz en vivo","No se encuentran los datos correctos");
 		admin.asignar.asignarTodos();
-		assertEquals(mecan.getFuncionando(),true,"No reconoce los trabajores por puesto");
-		assertEquals(mecan.getFuncionando("Lluvia"),false,"No reconoce las restricciones por clima");
+		assertEquals(admin.getTrabajosSinAsignar().size(), 6, "No reconoze la cantidad de trabajos sin personal.");
+		assertEquals(mecan.getFuncionando(),true,"No reconoce los trabajores por puesto.");
+		assertEquals(mecan.getFuncionando("Lluvia"),false,"No reconoce las restricciones por clima.");
+		parque.crearEmpleado("nuevo", "Contra", "nuevo", 2222222, "null");
+		assertEquals(admin.getEmpleados().size(), 31 ,"No reconoce los empleados nuevos.");
+		assertEquals(admin.getTrabajosSinAsignar().size(), 5, "No asigna trabajos a los empleados nuevos.");
 		
 	}
 	
