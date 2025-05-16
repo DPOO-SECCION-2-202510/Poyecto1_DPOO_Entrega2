@@ -12,6 +12,10 @@ import empleado.TrabajoEspectaculo;
 public class AsignarTrabajo {
 	
 	
+	public Admin dueno;
+	
+	
+	
 	public HashMap<String, ArrayList<Empleado>> empleados;
 	
 	private HashMap<String, ArrayList<Trabajo>>  trabajosGenerales;
@@ -25,14 +29,17 @@ public class AsignarTrabajo {
 	public HashMap<String, Trabajo> turnosCierre;
 	
 
-	public AsignarTrabajo(HashMap<String, ArrayList<Empleado>> empleados, HashMap<String, ArrayList<TrabajoAtraccion>> ta, HashMap<String, ArrayList<TrabajoEspectaculo>> te, HashMap<String, ArrayList<Trabajo>> tg) {
+	public AsignarTrabajo(Admin dueno, HashMap<String, ArrayList<Empleado>> empleados, HashMap<String, ArrayList<TrabajoAtraccion>> ta, HashMap<String, ArrayList<TrabajoEspectaculo>> te, HashMap<String, ArrayList<Trabajo>> tg) {
 		this.empleados = empleados;
+		this.dueno = dueno;
 		this.trabajosAtraccion = ta;
 		this.trabajosEspectaculo = te;
 		this.trabajosGenerales = tg;
 		this.turnosApertura = new HashMap<String, Trabajo>();
 		this.turnosCierre = new HashMap<String, Trabajo>();
 	}
+	
+	
 	
 	public void asignarTrabajo(Trabajo trabajo, Empleado empleado, LocalDateTime turno) {
 		if (turno.getHour()==16) {
@@ -44,10 +51,11 @@ public class AsignarTrabajo {
 	}
 	
 	public void asignarTodos() {
+		asignarTrabajosAtraccion();
 		asignarTrabajosGenerales();
 		asignarTrabajosEspectaculo();
-		asignarTrabajosAtraccion();
 	}
+	
 	
 	private void asignarTrabajosGenerales() {
 		for (String nivel: empleados.keySet()) {
@@ -147,6 +155,10 @@ public class AsignarTrabajo {
 				}
 			}
 		}
+	}
+	
+	public Diario guardarTurnos() {
+		return new Diario(this, turnosApertura, turnosCierre);
 	}
 
 }

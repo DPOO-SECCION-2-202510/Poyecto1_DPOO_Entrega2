@@ -62,6 +62,8 @@ public class ConsolaAdmin {
 			}else if (opcion ==12) {
 				cambiarSenha();
 			}else if (opcion ==13) {
+				salvarTurnos();
+			}else if (opcion ==14) {
 				correr = false;
 			}
 		}
@@ -81,10 +83,11 @@ public class ConsolaAdmin {
 		System.out.print("10 - Ver trabajos sin empleado\n");
 		System.out.print("11 - Ver la utilidad del parque\n");
 		System.out.print("12 - Cambiar tu contraseña\n");
-		System.out.print("13 - Cerrar sesion\n");
+		System.out.print("13 - Guardar turnos asignados para fechas siguientes\n");
+		System.out.print("14 - Cerrar sesion\n");
 		input = new Scanner(System.in);
 		int numero = input.nextInt();
-		if (numero <0 || numero>13) {
+		if (numero <0 || numero>14) {
 			numero = menu();
 		}
 		return numero;
@@ -149,7 +152,7 @@ public class ConsolaAdmin {
 			System.out.print("No hay ningun turno asignado para la apertura.\n");
 		}else {
 			for(String empleado: turnosApertura.keySet()) {
-				System.out.print(empleado+" tiene turno en el "+turnosApertura.get(empleado).getServicio()+" donde tendra que "+turnosApertura.get(empleado).getDescripcion()+"/n");
+				System.out.print(empleado+" tiene turno en el "+turnosApertura.get(empleado).getServicio()+" donde tendra que "+turnosApertura.get(empleado).getDescripcion()+"\n");
 			}
 		}
 	}
@@ -160,7 +163,7 @@ public class ConsolaAdmin {
 			System.out.print("No hay ningun turno asignado para la apertura.\n");
 		}else {
 			for(String empleado: turnosCierre.keySet()) {
-				System.out.print(empleado+" tiene turno en el "+turnosCierre.get(empleado).getServicio()+" donde tendra que "+turnosCierre.get(empleado).getDescripcion()+"/n");
+				System.out.print(empleado+" tiene turno en el "+turnosCierre.get(empleado).getServicio()+" donde tendra que "+turnosCierre.get(empleado).getDescripcion()+"\n");
 			}
 		}
 	}
@@ -174,7 +177,7 @@ public class ConsolaAdmin {
 		if (emple==null) {
 			System.out.print("No se ha encontrado un empleado con ese nombre\n");
 		}else {
-			System.out.print(emple.getNombre()+" identificado con el CC "+emple.getCodigo()+" tiene un nivel de caacitacion "+emple.getCapacitacion()+". En el momento tiene "+emple.geHorarios().size()+" turnos asignados.");
+			System.out.print(emple.getNombre()+" identificado con el CC "+emple.getCodigo()+" tiene un nivel de caacitacion "+emple.getCapacitacion()+". En el momento tiene "+emple.geHorarios().size()+" turnos asignados."+"\n");
 	
 		}
 	}
@@ -189,13 +192,13 @@ public class ConsolaAdmin {
 			System.out.print("No se ha encontrado un trabajo con ese servicio\n");
 		}else if (cual=="general") {
 			Trabajo tr = admin.getTrabajoGen(nombre);
-			System.out.print("Trabajo en "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad());
+			System.out.print("Trabajo en "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad()+"\n");
 		}else if (cual=="atraccion") {
 			TrabajoAtraccion tr = admin.getTrabajoA(nombre);
-			System.out.print("Trabajo en la atraccion  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad());
+			System.out.print("Trabajo en la atraccion  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad()+"\n");
 		}else {
 			TrabajoEspectaculo tr = admin.getTrabajoEsp(nombre);
-			System.out.print("Trabajo en el espectaculo  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad());
+			System.out.print("Trabajo en el espectaculo  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+". En el momento tiene una utilidad de "+tr.getUtilidad()+"\n");
 		}
 	}
 	
@@ -218,7 +221,7 @@ public class ConsolaAdmin {
 		}
 		String cual = admin.revisarTrabajo(trabajo);
 		if (cual==null) {
-			System.out.print("No se ha encontrado un trabajo con ese servicio/n");
+			System.out.print("No se ha encontrado un trabajo con ese servicio\n");
 		}else if (cual=="general") {
 			Trabajo tr = admin.getTrabajoGen(trabajo);
 			admin.asignar.asignarTrabajo(tr, emple, hora);
@@ -241,7 +244,7 @@ public class ConsolaAdmin {
 	
 	private static void verTrabajosSolos() {
 		for(Trabajo tr: admin.getTrabajosSinAsignar()) {
-			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+"/n");
+			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion()+"\n");
 		}
 	}
 	
@@ -254,5 +257,8 @@ public class ConsolaAdmin {
 		System.out.print("Utilidad de los productos vendidos dentro del parque: "+utilTrabajo+"\n");
 	}
 	
+	private static void salvarTurnos() {
+		admin.asignar.guardarTurnos();
+	}
 
 }

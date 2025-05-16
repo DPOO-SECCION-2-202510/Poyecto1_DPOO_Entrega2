@@ -32,6 +32,8 @@ public class Admin {
 	
 	public MoverEmpleado mover;
 	
+	public Diario diario;
+	
 	
 	public Admin(String nombre, int id, ArrayList<Trabajo> trabajosGeneral, ArrayList<TrabajoAtraccion> atracciones, ArrayList<TrabajoEspectaculo> espectaculos) {
 		this.empleados = new HashMap<String, ArrayList<Empleado>>();
@@ -44,10 +46,11 @@ public class Admin {
 		this.trabajosGenerales = trabajosGenerales;
 		this.nombre = nombre;
 		this.id = id;
-		this.asignar = new AsignarTrabajo(empleados, atraccion, espectaculo, trabajosGenerales);
+		this.asignar = new AsignarTrabajo(this, empleados, atraccion, espectaculo, trabajosGenerales);
 		this.mover = new MoverEmpleado(empleados, nombre);
 		this.turnosApertura = asignar.turnosApertura;
 		this.turnosCierre = asignar.turnosCierre;
+		this.diario = asignar.guardarTurnos();
 	}
 	
 	
@@ -57,6 +60,14 @@ public class Admin {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void setApertura(HashMap<String, Trabajo> apertura) {
+		this.turnosApertura = apertura;
+	}
+	
+	public void setCierre(HashMap<String, Trabajo> cierre) {
+		this.turnosCierre = cierre;
 	}
 	
 	public int getNumEmpleados() {

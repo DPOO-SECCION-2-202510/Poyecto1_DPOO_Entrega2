@@ -24,24 +24,13 @@ public class ConsolaCliente {
 	
 	private static ParqueAtraccion parque;
 	
-	private static int peso;
-	
-	private static int altura;
-	
-	private static int edad;
-	
-	private static ArrayList<String> salud;
 	
 	private static Scanner input;
 	
 	
 	public ConsolaCliente(Cliente cliente, ParqueAtraccion parque) {
 		this.cliente = cliente;
-		this.salud = new ArrayList<String>();
 		this.parque = parque;
-		peso=0;
-		altura = 0;
-		edad=0;
 		Scanner input = new Scanner(System.in);
 	}
 	
@@ -150,7 +139,7 @@ public class ConsolaCliente {
 		input = new Scanner(System.in);
 		System.out.print("Desea cambiar su altura, edad y peso? ");
 		String cambiar = input.next();
-		if(cambiar == "si" || cambiar=="Si" || cambiar =="1") {
+		if(cambiar.contentEquals("si") || cambiar.contentEquals("Si") || cambiar.contentEquals("1")) {
 			System.out.print("Ingrese su altura: ");
 			if (input.hasNextInt()==false) {
 				throw new ExceptionInputIncorrecto("La altura en centimetros debe ser un numero.");
@@ -166,10 +155,10 @@ public class ConsolaCliente {
 				throw new ExceptionInputIncorrecto("La edad debe ser un numero.");
 			}
 			int edadA = input.nextInt();
-			salud.add(contraindicacion);
-			altura = alt;
-			peso = pesoA;
-			edad = edadA;
+			cliente.actualizarPeso(pesoA);
+			cliente.actualizarEdad(edadA);
+			cliente.actualizarAlt(alt);
+			cliente.actualizarSalud(contraindicacion);
 		}
 	}
 	
@@ -345,7 +334,7 @@ public class ConsolaCliente {
 	}
 	
 	private static void puedeEntrar() throws ExceptionInfoNotFound {
-		if(edad==0 || salud.isEmpty() || peso==0 || altura==0) {
+		if(cliente.getEdad()==0 || cliente.getSalud().isEmpty() || cliente.getPeso()==0 || cliente.getAlt()==0) {
 			System.out.print("Por favor ingrese primero su informacion de salud");
 		}else {
 			input = new Scanner(System.in);
@@ -355,11 +344,11 @@ public class ConsolaCliente {
 			boolean puede = false;
 			if(at instanceof AtraccionMecanica) {
 				AtraccionMecanica atm = (AtraccionMecanica) at;
-				puede = atm.puedeEntrar(peso, altura, salud);
+				puede = atm.puedeEntrar(cliente.getPeso(), cliente.getAlt(), cliente.getSalud());
 			}
 			if(at instanceof AtraccionCultural) {
 				AtraccionCultural atm = (AtraccionCultural) at;
-				puede = atm.puedeEntrar(edad);
+				puede = atm.puedeEntrar(cliente.getEdad());
 			}
 			if(puede) {
 				System.out.print("En base a su informacion de salud, usted puede usar la atraccion!!! ");

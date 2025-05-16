@@ -22,7 +22,9 @@ import exceptions.ExceptionInfoNotFound;
 import cliente.ClienteBuilder;
 
 
-public class ParqueAtraccion {
+public final class ParqueAtraccion {
+	
+	private static ParqueAtraccion instance;
 
 	private HashMap<String, Admin> administradores;
 	
@@ -46,7 +48,7 @@ public class ParqueAtraccion {
 	
 
 	
-	public ParqueAtraccion(ArrayList<Espacio> espacios, HashMap<String, Integer> tiquetes, HashMap<String, Integer> entradas, int fastPass) {
+	private ParqueAtraccion(ArrayList<Espacio> espacios, HashMap<String, Integer> tiquetes, HashMap<String, Integer> entradas, int fastPass) {
 		this.administradores = new HashMap<String, Admin>();
 		this.clientes = new HashMap<String, Cliente>();
 		this.utilidad = 0;
@@ -55,6 +57,13 @@ public class ParqueAtraccion {
 		this.espacios = espacios;
 		this.ingreso = new Ingreso();
 	}
+	
+	public static ParqueAtraccion getInstance(ArrayList<Espacio> espacios, HashMap<String, Integer> tiquetes, HashMap<String, Integer> entradas, int fastPass) {
+        if (instance == null) {
+            instance = new ParqueAtraccion(espacios, tiquetes, entradas,  fastPass);
+        }
+        return instance;
+    }
 	
 	public void añadirAtracciones(ArrayList<AtraccionCultural> cult, ArrayList<AtraccionMecanica> meca, ArrayList<Espectaculo> espe) {
 		this.cultural=cult;
@@ -245,12 +254,15 @@ public class ParqueAtraccion {
 		ArrayList<Trabajo> trabajos = menor.getTrabajosSinAsignar();
 		boolean asignado = false;
 		for (Trabajo tr: trabajos) {
-			if (tr.getCapaciacion() == capacitacion & asignado == false) {
+			System.out.print(tr.getCapaciacion()+"\n");
+			System.out.print(capacitacion+"\n");
+			if (tr.getCapaciacion().contentEquals(capacitacion)  & asignado == false) {
 				LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
 				LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
 				menor.asignar.asignarTrabajo(tr, empleado, ini);
 				menor.asignar.asignarTrabajo(tr, empleado, fin);
 			}
+
 		}
 	    return empleado;
 	}
@@ -323,6 +335,10 @@ public class ParqueAtraccion {
 		utilidad = utilidad+util;
 	}
 	
-	
+	public void actualizarFecha() {
+		for (Admin admin: administradores.values()) {
+			admin.diario.restore();
+		}
+	}
 	
 }

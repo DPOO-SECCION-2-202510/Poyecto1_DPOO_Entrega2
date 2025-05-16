@@ -156,7 +156,7 @@ public class ConsolaBasica {
 		precios.add(entrada);
 		precios.add(fastPass);
     	precios = PersistenciaBasica.cargarPrecios(precios);
-    	parque = new ParqueAtraccion(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
+    	parque = ParqueAtraccion.getInstance(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
     	HashMap<ArrayList<AtraccionCultural>,ArrayList<AtraccionMecanica>> atracciones = PersistenciaBasica.cargarAtraccion(parque);
     	ArrayList<AtraccionCultural> cultural = null;
     	ArrayList<AtraccionMecanica> meca=null;

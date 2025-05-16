@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import administrador.Admin;
 import cliente.Cliente;
+import cliente.ClienteBuilder;
 import empleado.Empleado;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
@@ -45,7 +46,7 @@ class ParqueAtraccionTest {
 		precios.add(entrada);
 		precios.add(fastPass);
     	precios = PersistenciaBasica.cargarPrecios(precios);
-    	parque = new ParqueAtraccion(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
+    	parque = ParqueAtraccion.getInstance(PersistenciaBasica.cargarEspacios(), precios.get(0), precios.get(1), precios.get(2).get("FastPass"));
     	HashMap<ArrayList<AtraccionCultural>,ArrayList<AtraccionMecanica>> atracciones = PersistenciaBasica.cargarAtraccion(parque);
     	ArrayList<AtraccionCultural> cultural = null;
     	ArrayList<AtraccionMecanica> meca=null;
@@ -75,7 +76,7 @@ class ParqueAtraccionTest {
 	@Test
 	void testInfoCargo() throws ExceptionInfoNotFound {
 		Atraccion meca = parque.getAtraccion("The Big Red Dragon");
-		AtraccionMecanica mecan=(AtraccionMecanica) meca;
+		AtraccionMecanica mecan= (AtraccionMecanica) meca;
 		Espectaculo esp = parque.getEspectaculo("Concierto Jazz");
 		assertEquals(mecan.getExclusividad(),"Diamante","No se encuentran los datos correctos");
 		assertEquals(esp.getDescripcion(),"Concierto con las mejores obras de Jazz en vivo","No se encuentran los datos correctos");
@@ -129,7 +130,14 @@ class ParqueAtraccionTest {
 
 	@Test
 	void comprar() {
-		Cliente cliente = new Cliente("nombre",12345678);
+		ClienteBuilder nuevo = new ClienteBuilder();
+		nuevo.setAltura(160);
+		nuevo.setEdad(20);
+		nuevo.setId(111234);
+		nuevo.setName("Jaime");
+		nuevo.setPeso(65);
+		nuevo.setSalud("corazon, alma");
+		Cliente cliente = nuevo.getNuevo();
 		assertEquals(cliente.getEntradasSinUsar().size(),0,"No reconoce inventarios vacios");
 		assertEquals(cliente.getTiquetesSinUsar().size(),0,"No reconoce inventarios vacios");
 		assertEquals(cliente.getFastPassSinUsar().size(),0,"No reconoce inventarios vacios");

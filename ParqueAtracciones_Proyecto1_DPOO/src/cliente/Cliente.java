@@ -53,12 +53,13 @@ public class Cliente {
 	}
 	
 	public int getAlt() {
-		return edad;
+		return alt;
 	}
 	
 	public int getEdad() {
 		return edad;
 	}
+
 	
 	public ArrayList<String> getSalud(){
 		return salud;
@@ -132,6 +133,20 @@ public class Cliente {
 		return uso;
 	}
 	
+	public void actualizarEdad(int nueva) {
+		edad = nueva;
+	}
 	
+	public void actualizarPeso(int nueva) {
+		peso = nueva;
+	}
+	
+	public void actualizarAlt(int nueva) {
+		alt = nueva;
+	}
+	
+	public void actualizarSalud(String nueva) {
+		salud.add(nombre);
+	}
 
 }
