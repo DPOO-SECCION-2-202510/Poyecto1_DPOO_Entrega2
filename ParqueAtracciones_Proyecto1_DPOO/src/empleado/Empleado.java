@@ -74,7 +74,7 @@ public class Empleado {
 	public Trabajo trabajoEnHora(LocalDateTime hora) {
 		Trabajo tiene = null;
 		for (LocalDateTime trabajo: trabajos.keySet()) {
-			if (trabajo.isEqual(hora)|| trabajo.isBefore(hora)) {
+			if (trabajo.isEqual(hora) || trabajo.isBefore(hora)) {
 				LocalDateTime fin = trabajo.plusHours(5);
 				if(fin.isEqual(hora)|| fin.isAfter(hora)) {
 					tiene = trabajos.get(trabajo);
@@ -85,7 +85,7 @@ public class Empleado {
 	}
 	
 	
-	public HashMap<LocalDateTime, Trabajo> geHorarios() {
+	public HashMap<LocalDateTime, Trabajo> getHorarios() {
 		return trabajos;
 	}
 	
@@ -98,8 +98,8 @@ public class Empleado {
 	
 	public boolean contraCorrecta(String usuarioA, String contraA) throws ExceptionConstrasenaIncorrecta{
 		boolean es = false;
-		if (usuarioA==usuario) {
-			if (contraA==contra) {
+		if (usuarioA.contentEquals(usuario)) {
+			if (contraA.contentEquals(contra)) {
 				es = true;
 			}else {
 				throw new ExceptionConstrasenaIncorrecta("La contraseña es incorrecta, intente de nuevo.");

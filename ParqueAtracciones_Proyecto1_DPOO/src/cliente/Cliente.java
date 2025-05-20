@@ -146,7 +146,7 @@ public class Cliente {
 	}
 	
 	public void actualizarSalud(String nueva) {
-		salud.add(nombre);
+		salud.add(nueva);
 	}
 
 }

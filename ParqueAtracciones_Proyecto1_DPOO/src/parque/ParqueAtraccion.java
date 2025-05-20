@@ -117,12 +117,12 @@ public class ParqueAtraccion {
 	public String getInfoAtraccion(String nombre) {
 		String info = "Atraccion no encontrada";
 		for(AtraccionCultural cult: cultural) {
-			if (cult.getNombre()==nombre) {
+			if (cult.getNombre().contentEquals(nombre)) {
 				info = cult.getInfo();
 			}
 		}
 		for(AtraccionMecanica meca: mecanicas) {
-			if (meca.getNombre()==nombre) {
+			if (meca.getNombre().contentEquals(nombre)) {
 				info = meca.getInfo();
 			}
 		}
@@ -185,8 +185,8 @@ public class ParqueAtraccion {
 	
 	public Empleado ingresarEmpleado(String nombreUsuario, String contrasena, String adminN) throws ExceptionUsuarioNoExiste, ExceptionConstrasenaIncorrecta {
 		Empleado este = null;
-		if(administradores.containsKey(adminN)) {
-			Admin admin = administradores.get(adminN);
+		Admin admin = encontrarAdmin(adminN);
+		if(admin != null) {
 			for(Empleado empleado: admin.getEmpleados()) {
 				if(empleado.contraCorrecta(nombreUsuario, contrasena)) {
 					este = empleado;
@@ -255,8 +255,9 @@ public class ParqueAtraccion {
 		boolean asignado = false;
 		for (Trabajo tr: trabajos) {
 			if (tr.getCapaciacion().contentEquals(capacitacion)  & asignado == false) {
-				LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-				LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
+				LocalDateTime hoy = LocalDateTime.now();
+				LocalDateTime ini = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),11,00);
+				LocalDateTime fin = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),16,00);
 				menor.asignar.asignarTrabajo(tr, empleado, ini);
 				menor.asignar.asignarTrabajo(tr, empleado, fin);
 			}
@@ -337,6 +338,16 @@ public class ParqueAtraccion {
 		for (Admin admin: administradores.values()) {
 			admin.diario.restore();
 		}
+	}
+	
+	private Admin encontrarAdmin(String nombre) {
+		Admin resultado = null;
+		for (Admin admin: administradores.values()) {
+			if (admin.getNombre().contentEquals(nombre)){
+				resultado = admin;
+			}
+		}
+		return resultado;
 	}
 	
 }

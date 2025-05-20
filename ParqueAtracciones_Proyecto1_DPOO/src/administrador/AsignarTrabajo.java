@@ -14,7 +14,7 @@ public class AsignarTrabajo {
 	
 	public Admin dueno;
 	
-	
+	public LocalDateTime hoy;
 	
 	public HashMap<String, ArrayList<Empleado>> empleados;
 	
@@ -29,7 +29,7 @@ public class AsignarTrabajo {
 	public HashMap<String, Trabajo> turnosCierre;
 	
 
-	public AsignarTrabajo(Admin dueno, HashMap<String, ArrayList<Empleado>> empleados, HashMap<String, ArrayList<TrabajoAtraccion>> ta, HashMap<String, ArrayList<TrabajoEspectaculo>> te, HashMap<String, ArrayList<Trabajo>> tg) {
+	public AsignarTrabajo(Admin dueno, HashMap<String, ArrayList<Empleado>> empleados, HashMap<String, ArrayList<TrabajoAtraccion>> ta, HashMap<String, ArrayList<TrabajoEspectaculo>> te, HashMap<String, ArrayList<Trabajo>> tg, LocalDateTime hoy) {
 		this.empleados = empleados;
 		this.dueno = dueno;
 		this.trabajosAtraccion = ta;
@@ -37,6 +37,7 @@ public class AsignarTrabajo {
 		this.trabajosGenerales = tg;
 		this.turnosApertura = new HashMap<String, Trabajo>();
 		this.turnosCierre = new HashMap<String, Trabajo>();
+		this.hoy = hoy;
 	}
 	
 	
@@ -63,13 +64,13 @@ public class AsignarTrabajo {
 				ArrayList<Trabajo> trabajosDisponibles = trabajosGenerales.get(nivel);
 				for (Trabajo trabajo: trabajosDisponibles) {
 					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
+					LocalDateTime ini = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),11,00);
+					LocalDateTime fin = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),16,00);
 					boolean encontradoA =false;
 					boolean encontradoB =false;
 					while (encontradoA == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
+						if (empleado.getHorarios().keySet().contains(ini) == false) {
 							asignarTrabajo(trabajo, empleado, ini);
 							encontradoA = true;
 						} 
@@ -78,7 +79,7 @@ public class AsignarTrabajo {
 					n=0;
 					while (encontradoB == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
+						if (empleado.getHorarios().keySet().contains(fin) == false) {
 							asignarTrabajo(trabajo, empleado, fin);
 							encontradoB = true;
 						}
@@ -96,13 +97,13 @@ public class AsignarTrabajo {
 				ArrayList<TrabajoEspectaculo> trabajosDisponibles = trabajosEspectaculo.get(nivel);
 				for (TrabajoEspectaculo trabajo: trabajosDisponibles) {
 					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
+					LocalDateTime ini = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),11,00);
+					LocalDateTime fin = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),16,00);
 					boolean encontradoA =false;
 					boolean encontradoB =false;
 					while (encontradoA == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
+						if (empleado.getHorarios().keySet().contains(ini) == false) {
 							asignarTrabajo(trabajo, empleado, ini);
 							encontradoA = true;
 						}
@@ -111,7 +112,7 @@ public class AsignarTrabajo {
 					n=0;
 					while (encontradoB == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
+						if (empleado.getHorarios().keySet().contains(fin) == false) {
 							asignarTrabajo(trabajo, empleado, fin);
 							encontradoB = true;
 						} 
@@ -129,13 +130,13 @@ public class AsignarTrabajo {
 				ArrayList<TrabajoAtraccion> trabajosDisponibles = trabajosAtraccion.get(nivel);
 				for (TrabajoAtraccion trabajo: trabajosDisponibles) {
 					int n = 0;
-					LocalDateTime ini = LocalDateTime.of(2025,4,14,11,00);
-					LocalDateTime fin = LocalDateTime.of(2025,4,14,16,00);
+					LocalDateTime ini = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),11,00);
+					LocalDateTime fin = LocalDateTime.of(hoy.getYear(),hoy.getMonth(),hoy.getDayOfMonth(),16,00);
 					boolean encontradoA =false;
 					boolean encontradoB =false;
 					while (encontradoA == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(ini) == false) {
+						if (empleado.getHorarios().keySet().contains(ini) == false) {
 							asignarTrabajo(trabajo, empleado, ini);
 							trabajo.getAtraccion().masEmpleado(empleado);
 							encontradoA = true;
@@ -145,7 +146,7 @@ public class AsignarTrabajo {
 					n=0;
 					while (encontradoB == false && n< empleados.get(nivel).size()) {
 						Empleado empleado = empleados.get(nivel).get(n);
-						if (empleado.geHorarios().keySet().contains(fin) == false) {
+						if (empleado.getHorarios().keySet().contains(fin) == false) {
 							asignarTrabajo(trabajo, empleado, fin);
 							trabajo.getAtraccion().masEmpleado(empleado);
 							encontradoB = true;

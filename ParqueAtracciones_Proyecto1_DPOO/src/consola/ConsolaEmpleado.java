@@ -74,7 +74,7 @@ public class ConsolaEmpleado {
 		String usuario = emple.getUsuario();
 		String contra = emple.getContra();
 		String nivel = emple.getCapacitacion();
-		int turnos = emple.geHorarios().size();
+		int turnos = emple.getHorarios().size();
 		System.out.print("Nombre: "+ nombre+"\n");
 		System.out.print("Identificacion: "+id+"\n");
 		System.out.print("Nombre de usuario: "+usuario+"\n");
@@ -85,7 +85,7 @@ public class ConsolaEmpleado {
 	}
 	
 	private static void verHorario() {
-		HashMap<LocalDateTime, Trabajo> horario = emple.geHorarios();
+		HashMap<LocalDateTime, Trabajo> horario = emple.getHorarios();
 		for(LocalDateTime hora: horario.keySet()) {
 			Trabajo tr = horario.get(hora);
 			DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
@@ -95,38 +95,53 @@ public class ConsolaEmpleado {
 	
 	
 	private static void verInfoTrabajo() {
+		System.out.print("Los trabajos disponibles son: \n");
+		for (Trabajo tr: emple.getHorarios().values()) {
+			System.out.print(tr.getServicio()+"\n");
+		}
 		System.out.print("Ingrese el nombre del trabajo: ");
 		String nombre = input.next();
-		Trabajo tr = emple.getTrabajo(nombre);
-		if (tr==null) {
+		Trabajo tar = emple.getTrabajo(nombre);
+		if (tar==null) {
 			System.out.print("No tiene asignado ningun trabajo con este nombre: ");
 		}else {
-			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
+			System.out.print("Trabajo en  "+tar.getServicio()+" donde el empleado tiene que "+tar.getDescripcion()+". \n Necesita nivel de capacitacion "+tar.getCapaciacion());
 		}
 	}
 	
 	
-	@SuppressWarnings("null")
 	private static void revisarTurno() {
 		System.out.print("Ingrese fecha (aaaa/mm/dd/hh/mn): ");
 		String horaS = input.next();
 		String[] horaA = horaS.split("/");
 		LocalDateTime hora =  LocalDateTime.of(Integer.parseInt(horaA[0]), Integer.parseInt(horaA[1]), Integer.parseInt(horaA[2]), Integer.parseInt(horaA[3]), Integer.parseInt(horaA[4]));
 		Trabajo tr = emple.trabajoEnHora(hora);
-		if (tr!=null) {
-			System.out.print("Tiene asignado un turno dentro de ese horario.\n ");
+		if (tr==null) {
+			System.out.print("No tiene asignado un turno dentro de ese horario.\n ");
 		}else {
 			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
 		}
 	}
 	
 	private static void registrarVenta() {
-		System.out.print("Ingrese el nombre del producto: ");
-		String producto = input.next();
-		System.out.print("Ingrese las cantidades: ");
-		int cantidad = input.nextInt();
 		Trabajo tr = emple.trabajoEnHora(LocalDateTime.now());
-		tr.vender(producto, cantidad);
+		if (tr != null) {
+			if (tr.getInventario().isEmpty()) {
+				System.out.print("Su trabajo no le permite vender ningun producto \n");
+			}else {
+				System.out.print("Los productos que existen son: \n");
+				for (String prod: tr.getInventario()) {
+					System.out.print(prod+"\n");
+				}
+				System.out.print("Ingrese el nombre del producto: ");
+				String producto = input.next();
+				System.out.print("Ingrese las cantidades: ");
+				int cantidad = input.nextInt();
+				tr.vender(producto, cantidad);
+			}
+		}else {
+			System.out.print("No puede vender ningun producto porque no se encuentra trabajando. \n");
+		}
 		
 	}
 	

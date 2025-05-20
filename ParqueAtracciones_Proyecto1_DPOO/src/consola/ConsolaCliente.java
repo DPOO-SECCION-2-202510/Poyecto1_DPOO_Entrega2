@@ -88,7 +88,7 @@ public class ConsolaCliente {
 		System.out.print("3 - Cambiar contraseña\n");
 		System.out.print("4 - Ver atracciones disonibles\n");
 		System.out.print("5 - Ver informcion de una atraccion\n");
-		System.out.print("6 - Revisar si podria usar una atraccion\n ");
+		System.out.print("6 - Revisar si podria usar una atraccion\n");
 		System.out.print("7 - Ver espectaculos disonibles\n");
 		System.out.print("8 - Ver informcion de un espectaculo\n");
 		System.out.print("9 - Ver tiquetes usados\n");
@@ -122,8 +122,8 @@ public class ConsolaCliente {
 		int enSinUsar = cliente.getEntradasSinUsar().size();
 		int fastUsados = cliente.getFastPassUsados().size();
 		int fastSinUsar = cliente.getFastPassSinUsar().size();
-		System.out.print("Nombre: "+ nombre+"/n");
-		System.out.print("Identificacion: "+id+"/n");
+		System.out.print("Nombre: "+ nombre+"\n");
+		System.out.print("Identificacion: "+id+"\n");
 		System.out.print("Numero de tiquetes usados: "+tiqUsados+"\n");
 		System.out.print("Numero de tiquetes sin usar: "+tiqSinUsar+"\n");
 		System.out.print("Numero de entradas usadas: "+enUsados+"\n");
@@ -135,7 +135,7 @@ public class ConsolaCliente {
 	public static void anadirInfoSalud() throws ExceptionInputIncorrecto {
 		input = new Scanner(System.in);
 		System.out.print("Ingrese contraindicaciones: ");
-		String contraindicacion = input.next();
+		String contraindicacion = input.nextLine();
 		input = new Scanner(System.in);
 		System.out.print("Desea cambiar su altura, edad y peso? ");
 		String cambiar = input.next();
@@ -176,17 +176,17 @@ public class ConsolaCliente {
 			System.out.print("No hay atracciones disponibles.\n ");
 		}
 		for (String atraccion: atracciones.keySet()) {
-			System.out.print(atraccion + ": "+atracciones.get(atraccion)+"\n");
+			System.out.print(atracciones.get(atraccion)+"\n");
 		}
 	}
 	
 	private static void verInfoAtraccion() {
 		input = new Scanner(System.in);
 		System.out.print("Ingrese el nombre de la atraccion: ");
-		String nombre = input.next();
+		String nombre = input.nextLine();
 		String[] info = parque.getInfoAtraccion(nombre).split(";");
 		for(int i=0;i<info.length;i++) {
-			System.out.print(info[i]+"/n");
+			System.out.print(info[i]+"\n");
 		}
 	}
 	
@@ -207,10 +207,10 @@ public class ConsolaCliente {
 	private static void verInfoEspectaculo() {
 		input = new Scanner(System.in);
 		System.out.print("Ingrese el nombre del espectaculo: ");
-		String nombre = input.next();
+		String nombre = input.nextLine();
 		String[] info = parque.getInfoEspectaculo(nombre).split(";");
 		for(int i=0;i<info.length;i++) {
-			System.out.print(info[i]+"/n");
+			System.out.print(info[i]+"\n");
 		}
 	}
 	
@@ -339,7 +339,7 @@ public class ConsolaCliente {
 		}else {
 			input = new Scanner(System.in);
 			System.out.print("Ingrese el nombre de la atraccion: ");
-			String nombre = input.next();
+			String nombre = input.nextLine();
 			Atraccion at = parque.getAtraccion(nombre);
 			boolean puede = false;
 			if(at instanceof AtraccionMecanica) {
@@ -347,8 +347,8 @@ public class ConsolaCliente {
 				puede = atm.puedeEntrar(cliente.getPeso(), cliente.getAlt(), cliente.getSalud());
 			}
 			if(at instanceof AtraccionCultural) {
-				AtraccionCultural atm = (AtraccionCultural) at;
-				puede = atm.puedeEntrar(cliente.getEdad());
+				AtraccionCultural atc = (AtraccionCultural) at;
+				puede = atc.puedeEntrar(cliente.getEdad());
 			}
 			if(puede) {
 				System.out.print("En base a su informacion de salud, usted puede usar la atraccion!!! ");

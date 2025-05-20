@@ -177,7 +177,7 @@ public class ConsolaAdmin {
 		if (emple==null) {
 			System.out.print("No se ha encontrado un empleado con ese nombre\n");
 		}else {
-			System.out.print(emple.getNombre()+" identificado con el CC "+emple.getCodigo()+" tiene un nivel de caacitacion "+emple.getCapacitacion()+". En el momento tiene "+emple.geHorarios().size()+" turnos asignados."+"\n");
+			System.out.print(emple.getNombre()+" identificado con el CC "+emple.getCodigo()+" tiene un nivel de caacitacion "+emple.getCapacitacion()+". En el momento tiene "+emple.getHorarios().size()+" turnos asignados."+"\n");
 	
 		}
 	}

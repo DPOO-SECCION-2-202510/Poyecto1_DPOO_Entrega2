@@ -49,6 +49,10 @@ public class AtraccionMecanica extends Atraccion{
 		boolean puede = false;
 		boolean puedeSalud = true;
 		for (String indicacion: salud) {
+			System.out.print(indicacion+"\n");
+			for (String contra: contraindicaciones) {
+				System.out.print(contra+"\n");
+			}
 			if (contraindicaciones.contains(indicacion)) {
 				puedeSalud = false;
 			}

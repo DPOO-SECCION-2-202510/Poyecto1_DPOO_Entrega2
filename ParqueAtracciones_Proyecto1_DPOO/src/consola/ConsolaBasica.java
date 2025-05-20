@@ -76,21 +76,21 @@ public class ConsolaBasica {
 	    			System.out.print("Desea ingresar su peso: ");
 	    			String peso1 = input.next();
 	    	    	int peso = 0;
-	    	    	if (peso1=="si") {
+	    	    	if (peso1.contentEquals("si")) {
 	    	    		System.out.print("Ingrese su peso: ");
 	    	    		peso = input.nextInt();
 	    	    	}
 	    	    	System.out.print("Desea ingresar su altura: ");
 	    	    	String alt1 = input.next();
 	    	    	int alt = 0;
-	    	    	if (alt1=="si") {
+	    	    	if (alt1.contentEquals("si")) {
 	    	    		System.out.print("Ingrese su altura: ");
 	    	    		alt = input.nextInt();
 	    	    	}
 	    	    	System.out.print("Desea ingresar su edad: ");
 	    	    	String edad1 = input.next();
 	    	    	int edad = 0;
-	    	    	if (edad1=="si") {
+	    	    	if (edad1.contentEquals("si")) {
 	    	    		System.out.print("Ingrese su edad: ");
 	    	    		edad = input.nextInt();
 	    	    	}

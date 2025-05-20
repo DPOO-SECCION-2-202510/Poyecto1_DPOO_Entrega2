@@ -13,6 +13,8 @@ public class Admin {
 	
 	private String nombre;
 	
+	private LocalDateTime hoy;
+	
 	private int id;
 	
 	private HashMap<String, ArrayList<Empleado>> empleados;
@@ -46,7 +48,8 @@ public class Admin {
 		this.trabajosGenerales = trabajosGenerales;
 		this.nombre = nombre;
 		this.id = id;
-		this.asignar = new AsignarTrabajo(this, empleados, atraccion, espectaculo, trabajosGenerales);
+		this.hoy = LocalDateTime.now();
+		this.asignar = new AsignarTrabajo(this, empleados, atraccion, espectaculo, trabajosGenerales, hoy);
 		this.mover = new MoverEmpleado(empleados, nombre);
 		this.turnosApertura = asignar.turnosApertura;
 		this.turnosCierre = asignar.turnosCierre;
