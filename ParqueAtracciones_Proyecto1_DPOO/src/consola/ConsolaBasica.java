@@ -96,7 +96,7 @@ public class ConsolaBasica {
 	    	    	}
 	    	    	System.out.print("Desea ingresar datos de salud: ");
 	    	    	String salud1 = input.next();
-	    	    	String salud = null;
+	    	    	String salud = "";
 	    	    	if (salud1=="si") {
 	    	    		System.out.print("Ingrese sus datos de salud separados por una , : ");
 	    	    		salud = input.next();
@@ -167,11 +167,12 @@ public class ConsolaBasica {
     	}
     	ArrayList<Espectaculo> espe = PersistenciaBasica.cargarEspectaculo(parque);
     	parque.añadirAtracciones(cultural, meca, espe);
-    	Previos.cargarEmpleadoPrevio(parque);
     	ArrayList<Trabajo> trabajosGeneral = PersistenciaBasica.cargarTrabajos(parque);
 		ArrayList<TrabajoAtraccion> tatracciones = PersistenciaBasica.cargarTrabajosA(parque);
 		ArrayList<TrabajoEspectaculo> espectaculos = PersistenciaBasica.cargarTrabajosE(parque);
     	Previos.cargarAdminPrevio(parque, trabajosGeneral, tatracciones, espectaculos);
+    	Previos.cargarEmpleadoPrevio(parque);
+    	
         correrAplicacion(cual, number);
         
     }

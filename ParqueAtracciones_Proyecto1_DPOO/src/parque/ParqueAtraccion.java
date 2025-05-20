@@ -22,7 +22,7 @@ import exceptions.ExceptionInfoNotFound;
 import cliente.ClienteBuilder;
 
 
-public final class ParqueAtraccion {
+public class ParqueAtraccion {
 	
 	private static ParqueAtraccion instance;
 
