@@ -1,9 +1,15 @@
 package ventanaBoleta;
 
-public class PanelQR {
+import java.util.List;
 
-	public PanelQR() {
-		// TODO Auto-generated constructor stub
+import javax.swing.JPanel;
+
+public class PanelQR extends JPanel{
+	
+	private VentanaBoleta principal;
+
+	public PanelQR(VentanaBoleta origen, String cual, List<String> info) {
+		this.principal = origen;
 	}
 
 }

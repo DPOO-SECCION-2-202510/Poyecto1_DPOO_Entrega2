@@ -1,7 +1,14 @@
 package consola;
 
 import java.util.Scanner;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -10,7 +17,7 @@ import empleado.Trabajo;
 import exceptions.ExceptionInputIncorrecto;
 import empleado.Empleado;
 
-public class ConsolaEmpleado {
+public class ConsolaEmpleado extends ConsolaMain{
 
 	private static Empleado emple;
 	
@@ -18,6 +25,7 @@ public class ConsolaEmpleado {
 	private static Scanner input;
 	
 	public ConsolaEmpleado(Empleado emple) {
+		super();
 		this.emple = emple;
 		
 		Scanner input = new Scanner(System.in);
@@ -47,6 +55,45 @@ public class ConsolaEmpleado {
 			}
 		}
 		
+	}
+	
+	public List<JLabel> getInfo(List<String> inputs) {
+		List<JLabel> info = new ArrayList<JLabel>();
+		if (opcion ==1) {
+			infoverInfo(inputs);
+		} else if (opcion ==2) {
+			infoverHorario(inputs);
+		} else if (opcion ==3) {
+			infoverInfoTrabajo(inputs);
+		}else if (opcion ==4) {
+			infocambiarSenha(inputs);
+		}else if (opcion ==5) {
+			inforevisarTurno(inputs);
+		}else if (opcion ==6) {
+			inforegistrarVenta (inputs);
+		}
+		return info;
+	}
+	
+	public List<JPanel> getInput(){
+		List<JPanel> input = new ArrayList<JPanel>();
+		if (opcion ==3) {
+			input=inputverInfoTrabajo();
+		}else if (opcion ==4) {
+			input=inputcambiarSenha();
+		}else if (opcion ==5) {
+			input=inputrevisarTurno();
+		}else if (opcion ==6) {
+			input=inputregistrarVenta();
+		}
+		return input;
+	}
+	
+	public String[] getMenu(){
+		String opciones = "1 - Ver tu informacion ;2 - Ver tu horario;3 - Ver informacion de un trabajo;4 - Cambiar tu contraseña"
+				+";5 - Revisar si tiene turno a cierta hora;6 - Registrar venta;7 - Cerrar sesion";
+		String [] menu = opciones.split(";");
+		return menu;
 	}
 	
 	private static int menu() throws ExceptionInputIncorrecto {
@@ -84,6 +131,32 @@ public class ConsolaEmpleado {
 		System.out.print("Administrador asignado: "+emple.getAdmin()+"\n");
 	}
 	
+	
+	private List<JLabel> infoverInfo(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		String nombre = emple.getNombre();
+		int id = emple.getCodigo();
+		String usuario = emple.getUsuario();
+		String contra = emple.getContra();
+		String nivel = emple.getCapacitacion();
+		int turnos = emple.getHorarios().size();
+		JLabel s1 = new JLabel(("Nombre: "+ nombre));
+		JLabel s2 = new JLabel(("Identificacion: "+id));
+		JLabel s3 = new JLabel(("Nombre de usuario: "+usuario));
+		JLabel s4 = new JLabel(("contraseña: "+contra));
+		JLabel s5 = new JLabel(("Nivel de capacitacion: "+nivel));
+		JLabel s6 = new JLabel(("Turnos Asignados: "+turnos));
+		JLabel s7 = new JLabel(("Administrador asignado: "+emple.getAdmin()));
+		info.add(s1);
+		info.add(s2);
+		info.add(s3);
+		info.add(s4);
+		info.add(s5);
+		info.add(s6);
+		info.add(s7);
+		return info;
+	}
+	
 	private static void verHorario() {
 		HashMap<LocalDateTime, Trabajo> horario = emple.getHorarios();
 		for(LocalDateTime hora: horario.keySet()) {
@@ -91,6 +164,21 @@ public class ConsolaEmpleado {
 			DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 			System.out.print("A las "+ hora.format( formatter)+" tiene trabajo en "+ tr.getServicio()+"\n");
 		}
+		
+	}
+	
+	
+	private List<JLabel> infoverHorario(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		HashMap<LocalDateTime, Trabajo> horario = emple.getHorarios();
+		for(LocalDateTime hora: horario.keySet()) {
+			Trabajo tr = horario.get(hora);
+			DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+			String s = "A las "+ hora.format( formatter)+" tiene trabajo en "+ tr.getServicio();
+			JLabel s1 = new JLabel(s);
+			info.add(s1);
+		}
+		return info;
 	}
 	
 	
@@ -109,6 +197,32 @@ public class ConsolaEmpleado {
 		}
 	}
 	
+	private List<JLabel> infoverInfoTrabajo(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		String nombre = inputs.getFirst();
+		Trabajo tar = emple.getTrabajo(nombre);
+		if (tar==null) {
+			JLabel s = new JLabel("No tiene asignado ningun trabajo con este nombre: ");
+			info.add(s);
+		}else {
+			JLabel s = new JLabel("Trabajo en  "+tar.getServicio()+" donde el empleado tiene que "+tar.getDescripcion()+". \n Necesita nivel de capacitacion "+tar.getCapaciacion());
+			info.add(s);
+		}
+		return info;
+	}
+	
+	private List<JPanel> inputverInfoTrabajo() {
+		List<JPanel> info = new ArrayList<JPanel>();
+		JTextField op= new JTextField(16);
+		op.setHorizontalAlignment(0);
+    	JLabel labNombre = new JLabel("Ingrese el nombre del trabajo: ");
+    	JPanel nom = new JPanel();
+    	nom.add(labNombre);
+    	nom.add(op);
+    	info.add(nom);
+		return info;
+	}
+	
 	
 	private static void revisarTurno() {
 		System.out.print("Ingrese fecha (aaaa/mm/dd/hh/mn): ");
@@ -122,6 +236,36 @@ public class ConsolaEmpleado {
 			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
 		}
 	}
+	private List<JLabel> inforevisarTurno(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		String horaS = inputs.getFirst();
+		String[] horaA = horaS.split("/");
+		LocalDateTime hora =  LocalDateTime.of(Integer.parseInt(horaA[0]), Integer.parseInt(horaA[1]), Integer.parseInt(horaA[2]), Integer.parseInt(horaA[3]), Integer.parseInt(horaA[4]));
+		Trabajo tr = emple.trabajoEnHora(hora);
+		if (tr==null) {
+			JLabel s = new JLabel("No tiene asignado un turno dentro de ese horario.\n ");
+			info.add(s);
+		}else {
+			String a = ("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
+			JLabel s = new JLabel(a);
+			info.add(s);
+		}
+		return info;
+	}
+	
+	private List<JPanel> inputrevisarTurno() {
+		List<JPanel> info = new ArrayList<JPanel>();
+		JTextField op= new JTextField(16);
+		op.setHorizontalAlignment(0);
+    	JLabel labNombre = new JLabel("Ingrese fecha (aaaa/mm/dd/hh/mn): ");
+    	JPanel nom = new JPanel();
+    	nom.add(labNombre);
+    	nom.add(op);
+    	info.add(nom);
+		return info;
+	}
+	
+	
 	
 	private static void registrarVenta() {
 		Trabajo tr = emple.trabajoEnHora(LocalDateTime.now());
@@ -145,10 +289,84 @@ public class ConsolaEmpleado {
 		
 	}
 	
+	private List<JLabel> inforegistrarVenta(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		Trabajo tr = emple.trabajoEnHora(LocalDateTime.now());
+		if (tr != null) {
+			if (tr.getInventario().isEmpty()) {
+				JLabel s = new JLabel("Su trabajo no le permite vender ningun producto \n");
+				info.add(s);
+			}else {
+				String producto = inputs.getFirst();
+				int cantidad = Integer.parseInt(inputs.getLast());
+				tr.vender(producto, cantidad);
+				JLabel s = new JLabel("Se han vendido los productos exitosamente");
+				info.add(s);
+			}
+		}else {
+			JLabel s = new JLabel("No puede vender ningun producto porque no se encuentra trabajando. \n");
+			info.add(s);
+		}
+		return info;
+	}
+	
+	private List<JPanel> inputregistrarVenta() {
+		List<JPanel> info = new ArrayList<JPanel>();
+		Trabajo tr = emple.trabajoEnHora(LocalDateTime.now());
+		if (tr != null) {
+			if (tr.getInventario().isEmpty()) {
+				JLabel labNombre = new JLabel("Su trabajo no le permite vender ningun producto");
+		    	JPanel nom = new JPanel();
+		    	nom.add(labNombre);
+			}else {
+				JTextField op= new JTextField(16);
+				op.setHorizontalAlignment(0);
+		    	JLabel labNombre = new JLabel("Ingrese el nombre del producto: ");
+		    	JPanel nom = new JPanel();
+		    	nom.add(labNombre);
+		    	nom.add(op);
+		    	info.add(nom);
+		    	JTextField op2= new JTextField(16);
+				op2.setHorizontalAlignment(0);
+		    	JLabel labNombre2 = new JLabel("Ingrese las cantidades: ");
+		    	JPanel nom2 = new JPanel();
+		    	nom2.add(labNombre2);
+		    	nom2.add(op2);
+		    	info.add(nom2);
+			}
+		}else {
+			JLabel labNombre = new JLabel("No puede vender ningun producto porque no se encuentra trabajando ");
+	    	JPanel nom = new JPanel();
+	    	nom.add(labNombre);
+		}
+		return info;
+		
+	}
+	
 	private static void cambiarSenha() {
 		System.out.print("Ingrese nueva contraseña: ");
 		String senha = input.next();
 		emple.cambiarContra(senha);
+	}
+	
+	private static void infocambiarSenha(List<String> inputs) {
+		List<JLabel> info  = new ArrayList<JLabel>();
+		String senha = inputs.getFirst();
+		emple.cambiarContra(senha);
+		JLabel s = new JLabel("Se ha cambiado la contraseña exitosamente");
+		info.add(s);
+	}
+	
+	private List<JPanel> inputcambiarSenha(){
+		List<JPanel> info = new ArrayList<JPanel>();
+		JTextField op= new JTextField(16);
+		op.setHorizontalAlignment(0);
+    	JLabel labNombre = new JLabel( "Ingrese nueva contraseña: " );
+    	JPanel nom = new JPanel();
+    	nom.add(labNombre);
+    	nom.add(op);
+    	info.add(nom);
+    	return info;
 	}
 	
 }

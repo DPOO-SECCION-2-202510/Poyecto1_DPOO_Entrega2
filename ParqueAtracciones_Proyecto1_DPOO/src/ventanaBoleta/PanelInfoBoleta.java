@@ -1,9 +1,64 @@
 package ventanaBoleta;
 
-public class PanelInfoBoleta {
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.List;
 
-	public PanelInfoBoleta() {
-		// TODO Auto-generated constructor stub
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class PanelInfoBoleta extends JPanel{
+	
+	private VentanaBoleta princial;
+
+	
+	public PanelInfoBoleta(VentanaBoleta ventana, String cual, List<String> info) {
+		this.princial= ventana;
+		setLayout(new BorderLayout());
+		JLabel nom = new JLabel(info.get(0));
+		JPanel nomm = new JPanel();
+		nomm.add(nom, BorderLayout.CENTER);
+		
+		
+		JLabel tiqn = new JLabel("Atraccion: ");
+		if (cual.equals("tiquete")) {
+			tiqn = new JLabel("Tiquete: ");
+		}else if (cual.equals("fastPass")) {
+			tiqn = new JLabel("FastPass: ");
+		}
+		
+		
+		JPanel datos = new JPanel();
+		datos.setLayout(new GridLayout(0, 2));
+		JLabel tiq = new JLabel(info.get(1));
+		JLabel fecn = new JLabel("Fecha de Expiracion: ");
+		JLabel fec = new JLabel(info.get(2));
+		JLabel valn = new JLabel("Valor: ");
+		JLabel val = new JLabel(info.get(3));
+		datos.add(tiqn);
+		datos.add(tiq);
+		datos.add(fecn);
+		datos.add(fec);
+		datos.add(valn);
+		datos.add(val);
+		
+		
+		String exclusividad = info.get(4);
+		JLabel imagen = new JLabel(new ImageIcon( "./data/imagenDiamante.png" ));
+		if (exclusividad.equals("oro")) {
+			imagen = new JLabel(new ImageIcon( "./data/imagenOro.png" ));
+		}else if (exclusividad.equals("familiar")) {
+			imagen = new JLabel(new ImageIcon( "./data/imagenFamilia.png" ));
+		}
+		
+		
+		
+		add(nom, BorderLayout.NORTH);
+		add(datos, BorderLayout.CENTER);
+		add(imagen, BorderLayout.SOUTH);
+		setVisible(true);
 	}
 
 }
