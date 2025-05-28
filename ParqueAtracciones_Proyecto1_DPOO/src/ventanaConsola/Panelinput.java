@@ -25,6 +25,7 @@ public class Panelinput extends JPanel{
 		flowLayout.setAlignment(java.awt.FlowLayout.LEFT);
 		setLayout( flowLayout );
 		setVisible(true);
+		setSize(200, 500);
 	}
 
 	

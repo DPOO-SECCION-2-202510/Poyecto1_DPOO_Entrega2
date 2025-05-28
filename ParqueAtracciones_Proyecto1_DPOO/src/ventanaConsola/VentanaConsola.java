@@ -1,6 +1,7 @@
 package ventanaConsola;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -27,9 +28,9 @@ public class VentanaConsola extends JFrame{
 	
 			
 		this.consola = consol;
-		this.panelInfo = new Panelinfo(consola);
-		this.panelInput = new Panelinput(consola);
-		this.panelOrden = new PanelOrden(this, consola);
+		this.panelInfo = new Panelinfo(this.consola);
+		this.panelInput = new Panelinput(this.consola);
+		this.panelOrden = new PanelOrden(this, this.consola);
 		this.parque = parque;
 		setLayout( new BorderLayout( ) );
 		add(panelOrden, BorderLayout.NORTH);
@@ -40,6 +41,7 @@ public class VentanaConsola extends JFrame{
 		setTitle( "Parque de Atracciones" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setSize( 400, 600 );
+        pack( );
         setLocationRelativeTo( null );
         setVisible( true );
 	}
@@ -47,12 +49,24 @@ public class VentanaConsola extends JFrame{
 	public void cambiarOpcion(int opcion) {
 		if(consola instanceof ConsolaAdmin) {
 			ConsolaAdmin conso = (ConsolaAdmin) consola;
+			conso.canbiarOpcion(opcion);
+			panelInput.mostrarInputs();
+			List<String> inputs = panelInput.getInputs();
+			panelInfo.mostrarInfo(inputs);
 		}else if(consola instanceof ConsolaCliente) {
 			ConsolaCliente conso = (ConsolaCliente) consola;
+			conso.canbiarOpcion(opcion);
+			panelInput.mostrarInputs();
+			List<String> inputs = panelInput.getInputs();
+			panelInfo.mostrarInfo(inputs);
 		}else if(consola instanceof ConsolaEmpleado) {
 			ConsolaEmpleado conso = (ConsolaEmpleado) consola;
+			conso.canbiarOpcion(opcion);
+			panelInput.mostrarInputs();
+			List<String> inputs = panelInput.getInputs();
+			panelInfo.mostrarInfo(inputs);
 		}
 	}
-
+	
 
 }

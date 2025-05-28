@@ -103,7 +103,12 @@ public class ConsolaCliente extends ConsolaMain{
 		}else if (opcion ==5) {
 			info =infoverInfoAtraccion(inputs);
 		}else if (opcion ==6) {
-			info =infopuedeEntrar(inputs);
+			try {
+				info =infopuedeEntrar(inputs);
+			} catch (ExceptionInfoNotFound e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else if (opcion ==7) {
 			info =infoverEspectaculos();
 		}else if (opcion ==8) {
@@ -812,7 +817,7 @@ public class ConsolaCliente extends ConsolaMain{
 		}
 	}
 	
-	private List<JLabel> infopuedeEntrar(List<String> inputs) {
+	private List<JLabel> infopuedeEntrar(List<String> inputs) throws ExceptionInfoNotFound {
 		List<JLabel> info  = new ArrayList<JLabel>();
 		if(cliente.getEdad()==0 || cliente.getSalud().isEmpty() || cliente.getPeso()==0 || cliente.getAlt()==0) {
 			JLabel s = new JLabel("Por favor ingrese primero su informacion de salud");

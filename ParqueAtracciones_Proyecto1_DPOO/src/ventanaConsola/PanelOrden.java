@@ -1,6 +1,7 @@
 package ventanaConsola;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,20 +10,21 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import consola.ConsolaMain;
 
 
 @SuppressWarnings("serial")
-public class PanelOrden extends JPanel implements ListSelectionListener{
+public class PanelOrden extends JPanel implements ActionListener{
 	
 	private VentanaConsola ventana;
 	
 	private ConsolaMain consola;
 	
-	private JList<String> opciones;
+	private JComboBox opciones;
 	
-	private DefaultListModel<String> dataModel;
 
 	public PanelOrden(VentanaConsola ventana, ConsolaMain consola) {
 		this.ventana = ventana;
@@ -30,14 +32,9 @@ public class PanelOrden extends JPanel implements ListSelectionListener{
 		setBorder( new TitledBorder( "Opciones" ) );
         setLayout( new BorderLayout( ) );
         
-        dataModel = new DefaultListModel<>( );
         String[] ops = consola.getMenu();
-        for (String op: ops) {
-        	dataModel.addElement(op);
-        }
-        opciones = new JList<>( dataModel );
-        opciones.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-        opciones.addListSelectionListener( this );
+        opciones = new JComboBox(ops);
+        opciones.addActionListener(this);
         JScrollPane scroll = new JScrollPane( opciones );
         scroll.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
         scroll.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
@@ -46,18 +43,16 @@ public class PanelOrden extends JPanel implements ListSelectionListener{
  
 	}
 
+
+
 	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		String opcion = opciones.getSelectedValue();
+	public void actionPerformed(ActionEvent e) {
+		JComboBox cb = (JComboBox)e.getSource();
+        String opcion = (String)cb.getSelectedItem();
 		int op = Integer.parseInt(opcion.substring(0, 1));
 		consola.canbiarOpcion(op);
-	
+		ventana.cambiarOpcion(op);
+		
 	}
-	
-	public void seleccionarOpcion( String opcion )
-    {
-        opciones.setSelectedValue( opcion, true );
-        
-    }
 
 }

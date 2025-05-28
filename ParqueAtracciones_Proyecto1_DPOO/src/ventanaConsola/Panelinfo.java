@@ -18,6 +18,7 @@ public class Panelinfo extends JPanel{
 		FlowLayout flowLayout = new FlowLayout();
 		flowLayout.setAlignment(java.awt.FlowLayout.LEFT);
 		setLayout( flowLayout );
+		setSize(200, 500);
 		setVisible(true);
 	}
 	

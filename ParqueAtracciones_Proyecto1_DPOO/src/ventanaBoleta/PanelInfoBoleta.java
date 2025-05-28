@@ -58,6 +58,7 @@ public class PanelInfoBoleta extends JPanel{
 		add(nom, BorderLayout.NORTH);
 		add(datos, BorderLayout.CENTER);
 		add(imagen, BorderLayout.SOUTH);
+		setBackground(Color.CYAN);
 		setVisible(true);
 	}
 

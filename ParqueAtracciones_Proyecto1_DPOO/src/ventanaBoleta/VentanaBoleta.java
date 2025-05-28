@@ -48,6 +48,7 @@ public class VentanaBoleta extends JFrame{
 	
 	
 	
+	
 	public static void main( String[] args ) {
 		String cual = "";
 		List<String> info = new ArrayList<String>();
@@ -55,6 +56,7 @@ public class VentanaBoleta extends JFrame{
 		info.add("kmkml");
 		info.add("1pokphgiu12");
 		info.add("ddddd");
+		info.add("ggjh");
 		LocalDateTime dia = LocalDateTime.now();
 		new VentanaBoleta(cual, info, dia);
 	}
