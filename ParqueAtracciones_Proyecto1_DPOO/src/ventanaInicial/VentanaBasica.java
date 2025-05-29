@@ -98,10 +98,10 @@ public class VentanaBasica extends JFrame{
 		}
 	}
 
-	public static void main(String[] args) throws IOException, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
+	//public static void main(String[] args) throws IOException, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
 		
-	VentanaBasica hola = new VentanaBasica();
-	}
+	//VentanaBasica hola = new VentanaBasica();
+	//}
 	
 	public void iniciarSecion(int opcion, String usuario, String contra, String adminS) throws ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste, ExceptionInputIncorrecto, IOException, ExceptionInfoNotFound, ExceptionConstrasenaIncorrecta{
 		if (opcion == 1) {

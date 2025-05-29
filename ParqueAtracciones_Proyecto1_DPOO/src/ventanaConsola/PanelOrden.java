@@ -50,9 +50,10 @@ public class PanelOrden extends JPanel implements ActionListener{
 		JComboBox cb = (JComboBox)e.getSource();
         String opcion = (String)cb.getSelectedItem();
 		int op = Integer.parseInt(opcion.substring(0, 1));
-		consola.canbiarOpcion(op);
 		ventana.cambiarOpcion(op);
 		
 	}
+	
+	
 
 }
