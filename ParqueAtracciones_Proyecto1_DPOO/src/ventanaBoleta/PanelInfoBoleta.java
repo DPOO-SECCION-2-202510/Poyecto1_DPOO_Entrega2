@@ -48,9 +48,9 @@ public class PanelInfoBoleta extends JPanel{
 		
 		String exclusividad = info.get(4);
 		JLabel imagen = new JLabel(new ImageIcon( "./data/imagenDiamante.png" ));
-		if (exclusividad.equals("oro")) {
+		if (exclusividad.equals("Oro")) {
 			imagen = new JLabel(new ImageIcon( "./data/imagenOro.png" ));
-		}else if (exclusividad.equals("familiar")) {
+		}else if (exclusividad.equals("Familiar")) {
 			imagen = new JLabel(new ImageIcon( "./data/imagenFamilia.png" ));
 		}
 		imagen.setOpaque(true);
