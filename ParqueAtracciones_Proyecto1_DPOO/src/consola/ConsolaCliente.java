@@ -161,7 +161,7 @@ public class ConsolaCliente extends ConsolaMain{
 	public String[] getMenu() {
 		String opciones = "01 - Ver tu informacion;02 - Anadir informacion de salud;03 - Cambiar contraseña;04 - Ver atracciones disonibles;05 - Ver informcion de una atraccion;06 - Revisar si podria usar una atraccion"
 				+";07 - Ver espectaculos disonibles;08 - Ver informcion de un espectaculo;09 - Ver tiquetes usados;10 - Ver entradas usadas"
-				+"11 - Ver fast pass usados;12 - Ver tiquetes comprados;13 - Ver entradas compradas;14 - Ver fast pass comprados;15 - Compar tiquetes;16 - Comprar entradas;17 - Comprar fast pass;18 - Cerrar sesion";
+				+";11 - Ver fast pass usados;12 - Ver tiquetes comprados;13 - Ver entradas compradas;14 - Ver fast pass comprados;15 - Compar tiquetes;16 - Comprar entradas;17 - Comprar fast pass;18 - Cerrar sesion";
 		String[] menu = opciones.split(";");
 		return menu;
 	}
@@ -678,23 +678,31 @@ public class ConsolaCliente extends ConsolaMain{
 	private List<JLabel> infocomprarTiquete(List<String> inputs){
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String nivel = inputs.get(0);
-		String ini = inputs.get(0);
-		String fin = inputs.get(1);
+		String ini = inputs.get(1);
+		String fin = inputs.get(2);
+		Tiquete tiq = null;
 		if (ini.isBlank()==false){
 			String[] iniA = ini.split("/");
 			String[] finA = fin.split("/");
-			Tiquete tiq = parque.getCajaVirtual().venderTiquete(nivel, LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0), LocalDateTime.of(Integer.parseInt(finA[0]), Integer.parseInt(finA[1]), Integer.parseInt(finA[2]), 21, 0));
+			tiq = parque.getCajaVirtual().venderTiquete(nivel, LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0), LocalDateTime.of(Integer.parseInt(finA[0]), Integer.parseInt(finA[1]), Integer.parseInt(finA[2]), 21, 0));
 			cliente.anadirTiq(tiq);
 			String a = "Comprado el tiquete numero "+ tiq.getCodigo()+" con un valor de "+tiq.getPrecio();
 			JLabel s = new JLabel(a);
 			info.add(s);
 		}else {
-			Tiquete tiq = parque.getCajaVirtual().venderTiquete(nivel);
+			LocalDateTime hoy = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+			fin = hoy.format(formatter);
+			fin.replaceAll("-", "/");
+			tiq = parque.getCajaVirtual().venderTiquete(nivel);
 			cliente.anadirTiq(tiq);
 			String a = "Comprado el tiquete numero "+ tiq.getCodigo()+" con un valor de "+tiq.getPrecio();
 			JLabel s = new JLabel(a);
 			info.add(s);
 		}
+		String b = "Tiquete;" + String.valueOf(tiq.getCodigo())+";"+fin+";"+String.valueOf(tiq.getPrecio())+";"+nivel;
+		JLabel sb = new JLabel(b);
+		info.add(sb);
 		return info;
 	}
 	
@@ -740,7 +748,10 @@ public class ConsolaCliente extends ConsolaMain{
 		cliente.anadirEn(en);
 		String a = "Comprada la entrada numero "+ en.getCodigo()+" con un valor de "+en.getPrecio();
 		JLabel s = new JLabel(a);
+		String b = "Entrada;" + String.valueOf(en.getCodigo())+";-;"+String.valueOf(en.getPrecio())+";"+en.getAtraccion();
+		JLabel sb = new JLabel(b);
 		info.add(s);
+		info.add(sb);
 		return info;
 	}
 	
@@ -774,9 +785,12 @@ public class ConsolaCliente extends ConsolaMain{
 		String iniS = inputs.get(0);
 		String[] iniA = iniS.split("/");
 		FastPass fast = parque.getCajaVirtual().venderFastPass(LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0));
-		String a = "Comprado el FastPass numero "+ fast.getCodigo()+" con un valor de "+fast.getPrecio();
+		String a = "Comprado el FastPass numero "+ String.valueOf(fast.getCodigo())+" con un valor de "+String.valueOf(fast.getPrecio());
 		JLabel s = new JLabel(a);
+		String b = "FastPass;" + String.valueOf(fast.getCodigo())+";"+iniS+";"+String.valueOf(fast.getPrecio())+";fast";
+		JLabel sb = new JLabel(b);
 		info.add(s);
+		info.add(sb);
 		return info;
 	}
 	

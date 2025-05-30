@@ -35,5 +35,8 @@ public class ConsolaMain {
 		return info;
 	}
 	
+	public int getOpcion() {
+		return opcion;
+	}
 
 }

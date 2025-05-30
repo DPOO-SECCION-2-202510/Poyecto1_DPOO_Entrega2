@@ -64,6 +64,7 @@ public class Panelinput extends JPanel implements ActionListener{
 			String op = in.getText();
 			usuarioInput.add(op);
 		}
+		inputs.clear();
 		return usuarioInput;
 	}
 
