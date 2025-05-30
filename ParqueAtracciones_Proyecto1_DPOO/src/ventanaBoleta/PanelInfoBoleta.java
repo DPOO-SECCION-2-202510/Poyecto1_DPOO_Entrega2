@@ -20,7 +20,7 @@ public class PanelInfoBoleta extends JPanel{
 		JLabel nom = new JLabel(info.get(0));
 		JPanel nomm = new JPanel();
 		nomm.add(nom, BorderLayout.CENTER);
-		
+		nom.setOpaque(true);
 		
 		JLabel tiqn = new JLabel("Atraccion: ");
 		if (cual.equals("tiquete")) {
@@ -43,6 +43,7 @@ public class PanelInfoBoleta extends JPanel{
 		datos.add(fec);
 		datos.add(valn);
 		datos.add(val);
+		datos.setOpaque(true);
 		
 		
 		String exclusividad = info.get(4);
@@ -52,13 +53,14 @@ public class PanelInfoBoleta extends JPanel{
 		}else if (exclusividad.equals("familiar")) {
 			imagen = new JLabel(new ImageIcon( "./data/imagenFamilia.png" ));
 		}
+		imagen.setOpaque(true);
 		
 		
 		
 		add(nom, BorderLayout.NORTH);
 		add(datos, BorderLayout.CENTER);
 		add(imagen, BorderLayout.SOUTH);
-		setBackground(Color.CYAN);
+		setOpaque(true);
 		setVisible(true);
 	}
 

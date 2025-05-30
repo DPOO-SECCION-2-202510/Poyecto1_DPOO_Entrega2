@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,30 +25,38 @@ public class Panelinput extends JPanel implements ActionListener{
 
 	private VentanaConsola parque;
 	
+	private boolean ya;
+	
 	public Panelinput(ConsolaMain consola, VentanaConsola parque) {
 		this.consola = consola;
 		this.parque = parque;
 		this.inputs = new ArrayList<JTextField>();
-		this.boton = new JButton("Enter");
-		boton.addActionListener(this);
-		FlowLayout flowLayout = new FlowLayout();
-		flowLayout.setAlignment(java.awt.FlowLayout.LEFT);
-		add(boton);
-		setLayout( flowLayout );
+		this.ya = false;
+		mostrarInputs();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setVisible(true);
 		setSize(200, 500);
-		
+		ya = true;
 	}
 
 	
 	public void mostrarInputs() {
+		removeAll();
 		List<JPanel> ordenes = consola.getInput();
 		for (JPanel op : ordenes) {
 			add(op);
+			op.setVisible(true);
 			JTextField input = (JTextField) op.getComponent(1);
 			inputs.add(input);
 		}
+		if (ya) {
+			this.boton = new JButton("Enter");
+			add(boton);
+			boton.addActionListener(this);
+		}
+		setVisible(true);
 	}
+	
 	
 	public List<String> getInputs(){
 		List<String> usuarioInput = new ArrayList<String>();

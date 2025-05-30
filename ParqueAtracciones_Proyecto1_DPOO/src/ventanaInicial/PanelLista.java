@@ -27,7 +27,7 @@ public class PanelLista extends JPanel implements ActionListener{
 
         JComboBox scroll = new JComboBox(op);
         scroll.addActionListener(this);
-        
+        setName("lista");
         add( scroll );
         setVisible(true);
         

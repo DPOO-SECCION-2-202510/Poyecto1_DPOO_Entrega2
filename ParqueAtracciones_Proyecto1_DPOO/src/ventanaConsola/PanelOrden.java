@@ -13,6 +13,9 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import consola.ConsolaAdmin;
+import consola.ConsolaCliente;
+import consola.ConsolaEmpleado;
 import consola.ConsolaMain;
 
 
@@ -49,8 +52,26 @@ public class PanelOrden extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox)e.getSource();
         String opcion = (String)cb.getSelectedItem();
-		int op = Integer.parseInt(opcion.substring(0, 1));
-		ventana.cambiarOpcion(op);
+		int op = Integer.parseInt(opcion.substring(0, 2));
+		if(consola instanceof ConsolaAdmin) {
+			if(op==14) {
+				ventana.cerrarSesion();
+			}else {
+				ventana.cambiarOpcion(op);
+			}
+		}else if(consola instanceof ConsolaCliente) {
+			if(op==18) {
+				ventana.cerrarSesion();
+			}else {
+				ventana.cambiarOpcion(op);
+			}
+		}else if(consola instanceof ConsolaEmpleado) {
+			if(op==7) {
+				ventana.cerrarSesion();
+			}else {
+				ventana.cambiarOpcion(op);
+			}
+		}
 		
 	}
 	

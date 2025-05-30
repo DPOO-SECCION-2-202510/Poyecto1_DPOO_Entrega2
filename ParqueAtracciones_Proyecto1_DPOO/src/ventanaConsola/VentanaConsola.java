@@ -1,6 +1,7 @@
 package ventanaConsola;
 
 import java.awt.BorderLayout;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -10,6 +11,7 @@ import consola.ConsolaCliente;
 import consola.ConsolaEmpleado;
 import consola.ConsolaMain;
 import parque.ParqueAtraccion;
+import ventanaBoleta.VentanaBoleta;
 
 @SuppressWarnings("serial")
 public class VentanaConsola extends JFrame{
@@ -48,12 +50,25 @@ public class VentanaConsola extends JFrame{
 	
 	public void cambiarOpcion(int opcion) {
 		consola.canbiarOpcion(opcion);
-		panelInput.mostrarInputs();
+		this.panelInput.mostrarInputs();
+		add(this.panelInput, BorderLayout.WEST);
+		panelInfo.limpiar();
+		pack();
 	}
 
 	public void mostrarTodo() {
 		List<String> inputs = panelInput.getInputs();
-		panelInfo.mostrarInfo(inputs);
+		this.panelInfo.mostrarInfo(inputs);
+		pack();
 	}
-
+	
+	public void mostrarBoleta(String cual, List<String> info, LocalDateTime dia) {
+		new VentanaBoleta(cual, info, dia);
+	}
+	
+	public void cerrarSesion() {
+		dispose();
+	}
+	
+	
 }

@@ -11,15 +11,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/ana.baez/Downloads/zxing-master/core/target/core-3.5.4-SNAPSHOT.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/ana.baez/Downloads/zxing-master/javase/target/javase-3.5.4-SNAPSHOT.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="/Users/ana.baez/Downloads/zxing-master/core/target/core-3.5.4-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/ana.baez/Downloads/zxing-master/javase/target/javase-3.5.4-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

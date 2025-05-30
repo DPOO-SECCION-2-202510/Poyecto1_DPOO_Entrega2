@@ -13,7 +13,7 @@ public class ConsolaMain {
 	
 
 	public ConsolaMain() {
-		this.opcion = 0;
+		this.opcion = 1;
 	}
 	
 	public void canbiarOpcion(int op) {

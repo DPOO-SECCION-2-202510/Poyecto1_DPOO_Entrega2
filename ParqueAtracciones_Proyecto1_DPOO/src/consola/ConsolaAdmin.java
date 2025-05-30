@@ -1,7 +1,7 @@
 package consola;
 import parque.ParqueAtraccion;
 
-import java.lang.ProcessHandle.Info;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -132,10 +132,10 @@ public class ConsolaAdmin extends ConsolaMain{
 	
 	
 	public String[] getMenu() {
-		String opciones = "1 - Ver tu informacion;2 - Cargar trabajadores;3 - Añadir un trabajador"
-				+ ";4 - Ver turnos de apertura;5 - Ver turnos de cierre"
-				+ ";6 - Ver la informacion de un empleado;7 - Ver la informacion de un trabajo"
-				+ ";8 - Asignar un turno manualmente;9 - Usar auxiliar para asignar todos los turnos;10 - Ver trabajos sin empleado"
+		String opciones = "01 - Ver tu informacion;02 - Cargar trabajadores;03 - Añadir un trabajador"
+				+ ";04 - Ver turnos de apertura;05 - Ver turnos de cierre"
+				+ ";06 - Ver la informacion de un empleado;07 - Ver la informacion de un trabajo"
+				+ ";08 - Asignar un turno manualmente;09 - Usar auxiliar para asignar todos los turnos;10 - Ver trabajos sin empleado"
 				+ ";11 - Ver la utilidad del parque;12 - Cambiar tu contraseña"
 				+ ";13 - Guardar turnos asignados para fechas siguientes;14 - Cerrar sesion";
 				

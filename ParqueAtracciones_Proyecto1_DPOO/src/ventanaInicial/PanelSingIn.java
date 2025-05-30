@@ -105,33 +105,36 @@ public class PanelSingIn extends JPanel implements ActionListener{
 	    gbc.anchor = GridBagConstraints.CENTER;
 	    add(mensajeLabel, gbc);
 
+	    setName("singin");
 	    setVisible(false);
 	}
 
 	    
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==loginButton){
+			String usuario = usuarioTextField.getText();
+			String contra = String.valueOf(passwordField.getPassword());
+	        String op = (String)rolComboBox.getSelectedItem();
+	        String nombre = "";
+			int cual = 0;
+			if (op.equals("Cliente")) {
+				cual = 1;
+			}else if (op.equals("Administrador")) {
+				cual = 2;
+			}else if (op.equals("Empleado")) {
+				cual = 3;
+				
+			}
+			try {
+				principal.iniciarSecion(cual, usuario, contra, "");
+			} catch (ExceptionUsuarioYaExiste | ExceptionUsuarioNoExiste | ExceptionInputIncorrecto | IOException
+					| ExceptionInfoNotFound | ExceptionConstrasenaIncorrecta e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
 
-		String usuario = usuarioTextField.getText();
-		String contra = String.valueOf(passwordField.getPassword());
-		JComboBox cb = (JComboBox)e.getSource();
-        String op = (String)cb.getSelectedItem();
-		int cual = 0;
-		if (op.equals("Cliente")) {
-			cual = 1;
-		}else if (op.equals("Administrador")) {
-			cual = 2;
-		}else if (op.equals("Empleado")) {
-			cual = 3;
-		}
-		String entrar = e.getActionCommand();
-		try {
-			principal.iniciarSecion(cual, usuario, contra, "");
-		} catch (ExceptionUsuarioYaExiste | ExceptionUsuarioNoExiste | ExceptionInputIncorrecto | IOException
-				| ExceptionInfoNotFound | ExceptionConstrasenaIncorrecta e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 			
 	}
 

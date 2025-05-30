@@ -90,8 +90,8 @@ public class ConsolaEmpleado extends ConsolaMain{
 	}
 	
 	public String[] getMenu(){
-		String opciones = "1 - Ver tu informacion ;2 - Ver tu horario;3 - Ver informacion de un trabajo;4 - Cambiar tu contraseña"
-				+";5 - Revisar si tiene turno a cierta hora;6 - Registrar venta;7 - Cerrar sesion";
+		String opciones = "01 - Ver tu informacion ;02 - Ver tu horario;03 - Ver informacion de un trabajo;04 - Cambiar tu contraseña"
+				+";05 - Revisar si tiene turno a cierta hora;06 - Registrar venta;07 - Cerrar sesion";
 		String [] menu = opciones.split(";");
 		return menu;
 	}

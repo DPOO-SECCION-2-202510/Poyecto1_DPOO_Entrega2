@@ -159,8 +159,8 @@ public class ConsolaCliente extends ConsolaMain{
 	
 	
 	public String[] getMenu() {
-		String opciones = "1 - Ver tu informacion;2 - Anadir informacion de salud;3 - Cambiar contraseña;4 - Ver atracciones disonibles;5 - Ver informcion de una atraccion;6 - Revisar si podria usar una atraccion"
-				+";7 - Ver espectaculos disonibles;8 - Ver informcion de un espectaculo;9 - Ver tiquetes usados;10 - Ver entradas usadas"
+		String opciones = "01 - Ver tu informacion;02 - Anadir informacion de salud;03 - Cambiar contraseña;04 - Ver atracciones disonibles;05 - Ver informcion de una atraccion;06 - Revisar si podria usar una atraccion"
+				+";07 - Ver espectaculos disonibles;08 - Ver informcion de un espectaculo;09 - Ver tiquetes usados;10 - Ver entradas usadas"
 				+"11 - Ver fast pass usados;12 - Ver tiquetes comprados;13 - Ver entradas compradas;14 - Ver fast pass comprados;15 - Compar tiquetes;16 - Comprar entradas;17 - Comprar fast pass;18 - Cerrar sesion";
 		String[] menu = opciones.split(";");
 		return menu;

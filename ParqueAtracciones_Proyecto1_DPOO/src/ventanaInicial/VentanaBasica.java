@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -28,9 +27,6 @@ import juegos.Espectaculo;
 import parque.ParqueAtraccion;
 import persistencia.PersistenciaBasica;
 import persistencia.Previos;
-import ventanaConsola.PanelOrden;
-import ventanaConsola.Panelinfo;
-import ventanaConsola.Panelinput;
 import ventanaConsola.VentanaConsola;
 
 public class VentanaBasica extends JFrame{
@@ -42,8 +38,15 @@ public class VentanaBasica extends JFrame{
 	private ParqueAtraccion parque;
 	
 	private PanelLista lista;
+	
+	private boolean existeSing;
+	
+	private boolean existeLog;
 
 	public VentanaBasica() throws IOException, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
+		
+		this.existeLog=false;
+		this.existeSing = false;
 		
 		ArrayList<HashMap<String, Integer>> precios = new ArrayList<HashMap<String, Integer>>();
 		HashMap<String, Integer> tiquete = new HashMap<String, Integer>();
@@ -71,15 +74,13 @@ public class VentanaBasica extends JFrame{
     
     	
     	this.lista = new PanelLista(this);
-		this.logIn = new PanelLogIn();
+		this.logIn = new PanelLogIn(this);
 		this.singIn = new PanelSingIn(this);
 		
 		
 		setLayout( new BorderLayout( ) );
 		
 		add(lista, BorderLayout.NORTH);
-		add(logIn, BorderLayout.CENTER);
-		add(singIn, BorderLayout.CENTER);
 		
 		setTitle( "Parque de Atracciones" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
@@ -89,19 +90,30 @@ public class VentanaBasica extends JFrame{
 	}
 	
 	public void cambiarTipoEntrada(String opcion) {
-		if (opcion.equals("Iniciar Sesión")) {
-			logIn.setVisible(false);
-			singIn.setVisible(true);
-		}else if (opcion.equals("Crear cuenta")){
-			logIn.setVisible(true);
-			singIn.setVisible(false);
+		if(existeLog) {
+			remove(logIn);
 		}
+		if(existeSing) {
+			remove(singIn);
+		}
+		validate();
+		
+		if (opcion.equals("Iniciar Sesión")) {
+			add(this.singIn, BorderLayout.CENTER);
+			this.singIn.setVisible(true);
+			existeSing = true;
+		}else if (opcion.equals("Crear cuenta")){
+			add(this.logIn, BorderLayout.CENTER);
+			this.logIn.setVisible(true);
+			existeLog=true;
+		}
+		validate();
 	}
 
-	//public static void main(String[] args) throws IOException, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
+	public static void main(String[] args) throws IOException, ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste {
 		
-	//VentanaBasica hola = new VentanaBasica();
-	//}
+	VentanaBasica hola = new VentanaBasica();
+	}
 	
 	public void iniciarSecion(int opcion, String usuario, String contra, String adminS) throws ExceptionUsuarioYaExiste, ExceptionUsuarioNoExiste, ExceptionInputIncorrecto, IOException, ExceptionInfoNotFound, ExceptionConstrasenaIncorrecta{
 		if (opcion == 1) {
