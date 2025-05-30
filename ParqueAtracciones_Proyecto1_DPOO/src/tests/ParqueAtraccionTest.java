@@ -135,7 +135,7 @@ class ParqueAtraccionTest {
 	}
 
 	@Test
-	void comprar() {
+	void comprar() throws ExceptionInfoNotFound {
 		ClienteBuilder nuevo = new ClienteBuilder();
 		nuevo.setAltura(160);
 		nuevo.setEdad(20);

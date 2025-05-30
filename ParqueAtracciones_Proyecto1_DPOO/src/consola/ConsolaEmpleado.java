@@ -178,6 +178,10 @@ public class ConsolaEmpleado extends ConsolaMain{
 			JLabel s1 = new JLabel(s);
 			info.add(s1);
 		}
+		if (info.isEmpty()) {
+			JLabel s1 = new JLabel("No tiene ningun turno asignado en el momento");
+			info.add(s1);
+		}
 		return info;
 	}
 	
@@ -236,6 +240,7 @@ public class ConsolaEmpleado extends ConsolaMain{
 			System.out.print("Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". \nNecesita nivel de capacitacion "+tr.getCapaciacion());
 		}
 	}
+	
 	private List<JLabel> inforevisarTurno(List<String> inputs) {
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String horaS = inputs.getFirst();

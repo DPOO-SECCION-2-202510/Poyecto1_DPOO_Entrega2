@@ -397,9 +397,14 @@ public class ConsolaCliente extends ConsolaMain{
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String nombre = inputs.getFirst();
 		String[] data = parque.getInfoAtraccion(nombre).split(";");
-		for(int i=0;i<data.length;i++) {
-			JLabel s = new JLabel(data[i]);
+		if (data.length==1) {
+			JLabel s = new JLabel("No se a encontrado una atraccion con ese nombre");
 			info.add(s);
+		}else {
+			for(int i=0;i<data.length;i++) {
+				JLabel s = new JLabel(data[i]);
+				info.add(s);
+			}
 		}
 		return info;
 	}
@@ -464,9 +469,14 @@ public class ConsolaCliente extends ConsolaMain{
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String nombre = inputs.getFirst();
 		String[] data = parque.getInfoEspectaculo(nombre).split(";");
-		for(int i=0;i<data.length;i++) {
-			JLabel s = new JLabel(data[i]);
+		if (data.length==1) {
+			JLabel s = new JLabel("No se a encontrado un espectaculo con ese nombre");
 			info.add(s);
+		}else {
+			for(int i=0;i<data.length;i++) {
+				JLabel s = new JLabel(data[i]);
+				info.add(s);
+			}
 		}
 		return info;
 	}
@@ -551,6 +561,7 @@ public class ConsolaCliente extends ConsolaMain{
 		ArrayList<Entrada> enUsadas = cliente.getEntradasUsadas();
 		if (enUsadas.isEmpty()) {
 			JLabel s = new JLabel("No se ha usado ninguna entrada. ");
+			info.add(s);
 		}
 		for (Entrada en: enUsadas) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
@@ -681,28 +692,37 @@ public class ConsolaCliente extends ConsolaMain{
 		String ini = inputs.get(1);
 		String fin = inputs.get(2);
 		Tiquete tiq = null;
-		if (ini.isBlank()==false){
+		if (ini.equals("null")==false){
 			String[] iniA = ini.split("/");
 			String[] finA = fin.split("/");
-			tiq = parque.getCajaVirtual().venderTiquete(nivel, LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0), LocalDateTime.of(Integer.parseInt(finA[0]), Integer.parseInt(finA[1]), Integer.parseInt(finA[2]), 21, 0));
-			cliente.anadirTiq(tiq);
-			String a = "Comprado el tiquete numero "+ tiq.getCodigo()+" con un valor de "+tiq.getPrecio();
-			JLabel s = new JLabel(a);
-			info.add(s);
+			if(iniA.length==3 && finA.length==3) {
+				tiq = parque.getCajaVirtual().venderTiquete(nivel, LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0), LocalDateTime.of(Integer.parseInt(finA[0]), Integer.parseInt(finA[1]), Integer.parseInt(finA[2]), 21, 0));
+				cliente.anadirTiq(tiq);
+				String a = "Comprado el tiquete numero "+ tiq.getCodigo()+" con un valor de "+tiq.getPrecio();
+				JLabel s = new JLabel(a);
+				info.add(s);
+				String b = "Tiquete;" + String.valueOf(tiq.getCodigo())+";"+fin+";"+String.valueOf(tiq.getPrecio())+";"+nivel;
+				JLabel sb = new JLabel(b);
+				info.add(sb);
+			}
+			else {
+				JLabel sb = new JLabel("Porfavor ingrese las fechas en el formato indicado");
+				info.add(sb);
+			}
 		}else {
 			LocalDateTime hoy = LocalDateTime.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 			fin = hoy.format(formatter);
-			fin.replaceAll("-", "/");
+			fin = fin.replaceAll("-", "/");
 			tiq = parque.getCajaVirtual().venderTiquete(nivel);
 			cliente.anadirTiq(tiq);
 			String a = "Comprado el tiquete numero "+ tiq.getCodigo()+" con un valor de "+tiq.getPrecio();
 			JLabel s = new JLabel(a);
 			info.add(s);
+			String b = "Tiquete;" + String.valueOf(tiq.getCodigo())+";"+fin+";"+String.valueOf(tiq.getPrecio())+";"+nivel;
+			JLabel sb = new JLabel(b);
+			info.add(sb);
 		}
-		String b = "Tiquete;" + String.valueOf(tiq.getCodigo())+";"+fin+";"+String.valueOf(tiq.getPrecio())+";"+nivel;
-		JLabel sb = new JLabel(b);
-		info.add(sb);
 		return info;
 	}
 	
@@ -717,14 +737,14 @@ public class ConsolaCliente extends ConsolaMain{
     	info.add(nom);
     	JTextField op2= new JTextField(16);
 		op2.setHorizontalAlignment(0);
-    	JLabel labNombre2 = new JLabel("Ingrese fecha inicio (aaaa/mm/dd): ");
+    	JLabel labNombre2 = new JLabel("Ingrese fecha inicio (aaaa/mm/dd) (escriba \"null\" si ninguna): ");
     	JPanel nom2 = new JPanel();
     	nom2.add(labNombre2);
     	nom2.add(op2);
     	info.add(nom2);
     	JTextField op3= new JTextField(16);
 		op3.setHorizontalAlignment(0);
-    	JLabel labNombre3 = new JLabel("Ingrese fecha final (aaaa/mm/dd): ");
+    	JLabel labNombre3 = new JLabel("Ingrese fecha final (aaaa/mm/dd) (escriba \"null\" si ninguna): ");
     	JPanel nom3 = new JPanel();
     	nom3.add(labNombre3);
     	nom3.add(op3);
@@ -732,7 +752,7 @@ public class ConsolaCliente extends ConsolaMain{
 		return info;
 	}
 	
-	private static void comprarEntrada() {
+	private static void comprarEntrada() throws ExceptionInfoNotFound {
 		input = new Scanner(System.in);
 		System.out.print("Ingrese el nombre de la atraccion: ");
 		String atraccion = input.next();
@@ -744,14 +764,20 @@ public class ConsolaCliente extends ConsolaMain{
 	private List<JLabel> infocomprarEntrada(List<String> inputs) {
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String atraccion = inputs.getFirst();
-		Entrada en = parque.getCajaVirtual().venderEntrada(atraccion);
-		cliente.anadirEn(en);
-		String a = "Comprada la entrada numero "+ en.getCodigo()+" con un valor de "+en.getPrecio();
-		JLabel s = new JLabel(a);
-		String b = "Entrada;" + String.valueOf(en.getCodigo())+";-;"+String.valueOf(en.getPrecio())+";"+en.getAtraccion();
-		JLabel sb = new JLabel(b);
-		info.add(s);
-		info.add(sb);
+		Entrada en;
+		try {
+			en = parque.getCajaVirtual().venderEntrada(atraccion);
+			cliente.anadirEn(en);
+			String a = "Comprada la entrada numero "+ en.getCodigo()+" con un valor de "+en.getPrecio();
+			JLabel s = new JLabel(a);
+			String b = "Entrada;" + String.valueOf(en.getCodigo())+";-;"+String.valueOf(en.getPrecio())+";"+en.getAtraccion();
+			JLabel sb = new JLabel(b);
+			info.add(s);
+			info.add(sb);
+		} catch (ExceptionInfoNotFound e) {
+			JLabel sb = new JLabel("No se ha encontrado la atraccion ingresada");
+			info.add(sb);
+		}
 		return info;
 	}
 	
@@ -784,13 +810,18 @@ public class ConsolaCliente extends ConsolaMain{
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String iniS = inputs.get(0);
 		String[] iniA = iniS.split("/");
-		FastPass fast = parque.getCajaVirtual().venderFastPass(LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0));
-		String a = "Comprado el FastPass numero "+ String.valueOf(fast.getCodigo())+" con un valor de "+String.valueOf(fast.getPrecio());
-		JLabel s = new JLabel(a);
-		String b = "FastPass;" + String.valueOf(fast.getCodigo())+";"+iniS+";"+String.valueOf(fast.getPrecio())+";fast";
-		JLabel sb = new JLabel(b);
-		info.add(s);
-		info.add(sb);
+		if (iniA.length == 3) {
+			FastPass fast = parque.getCajaVirtual().venderFastPass(LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0));
+			String a = "Comprado el FastPass numero "+ String.valueOf(fast.getCodigo())+" con un valor de "+String.valueOf(fast.getPrecio());
+			JLabel s = new JLabel(a);
+			String b = "FastPass;" + String.valueOf(fast.getCodigo())+";"+iniS+";"+String.valueOf(fast.getPrecio())+";fast";
+			JLabel sb = new JLabel(b);
+			info.add(s);
+			info.add(sb);
+		}else {
+			JLabel s = new JLabel("Por favor ingrese la fecha en el formato indicado.");
+			info.add(s);
+		}
 		return info;
 	}
 	
@@ -839,21 +870,26 @@ public class ConsolaCliente extends ConsolaMain{
 		}else {
 			String nombre = inputs.getFirst();
 			Atraccion at = parque.getAtraccion(nombre);
-			boolean puede = false;
-			if(at instanceof AtraccionMecanica) {
-				AtraccionMecanica atm = (AtraccionMecanica) at;
-				puede = atm.puedeEntrar(cliente.getPeso(), cliente.getAlt(), cliente.getSalud());
-			}
-			if(at instanceof AtraccionCultural) {
-				AtraccionCultural atc = (AtraccionCultural) at;
-				puede = atc.puedeEntrar(cliente.getEdad());
-			}
-			if(puede) {
-				JLabel s = new JLabel("En base a su informacion de salud, usted puede usar la atraccion!!! ");
+			if (at.equals(null)) {
+				JLabel s = new JLabel("No se ha encontrad una atraccion con ese nombre.");
 				info.add(s);
 			}else {
-				JLabel s = new JLabel("En base a su informacion de salud, usted no puede usar la atraccion.");
-				info.add(s);
+				boolean puede = false;
+				if(at instanceof AtraccionMecanica) {
+					AtraccionMecanica atm = (AtraccionMecanica) at;
+					puede = atm.puedeEntrar(cliente.getPeso(), cliente.getAlt(), cliente.getSalud());
+				}
+				if(at instanceof AtraccionCultural) {
+					AtraccionCultural atc = (AtraccionCultural) at;
+					puede = atc.puedeEntrar(cliente.getEdad());
+				}
+				if(puede) {
+					JLabel s = new JLabel("En base a su informacion de salud, usted puede usar la atraccion!!! ");
+					info.add(s);
+				}else {
+					JLabel s = new JLabel("En base a su informacion de salud, usted no puede usar la atraccion.");
+					info.add(s);
+				}
 			}
 		}
 		return info;

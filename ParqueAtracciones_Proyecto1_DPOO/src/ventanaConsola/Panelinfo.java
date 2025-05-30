@@ -65,6 +65,13 @@ public class Panelinfo extends JPanel implements ActionListener{
 		
 	}
 	
+	public void falsoInput() {
+		removeAll();
+		JLabel no = new JLabel("Por favor ingrese los datos");
+		add(no);
+		setVisible(true);
+	}
+	
 	public void limpiar() {
 		removeAll();
 	}

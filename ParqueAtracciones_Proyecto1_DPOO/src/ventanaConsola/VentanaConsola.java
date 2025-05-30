@@ -10,6 +10,7 @@ import consola.ConsolaAdmin;
 import consola.ConsolaCliente;
 import consola.ConsolaEmpleado;
 import consola.ConsolaMain;
+import exceptions.ExceptionInputIncorrecto;
 import parque.ParqueAtraccion;
 import ventanaBoleta.VentanaBoleta;
 
@@ -57,9 +58,15 @@ public class VentanaConsola extends JFrame{
 	}
 
 	public void mostrarTodo() {
-		List<String> inputs = panelInput.getInputs();
-		this.panelInfo.mostrarInfo(inputs);
-		pack();
+		List<String> inputs;
+		try {
+			inputs = panelInput.getInputs();
+			this.panelInfo.mostrarInfo(inputs);
+			pack();
+		} catch (ExceptionInputIncorrecto e) {
+			this.panelInfo.falsoInput();
+			pack();
+		}
 	}
 	
 	public void mostrarBoleta(String cual, List<String> info, LocalDateTime dia) {

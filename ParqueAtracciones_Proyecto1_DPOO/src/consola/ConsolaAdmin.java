@@ -241,9 +241,15 @@ public class ConsolaAdmin extends ConsolaMain{
 	
 	private List<JLabel> infocambiarSenha(List<String> inputs) {
 		List<JLabel> info  = new ArrayList<JLabel>();
-		String senha = inputs.getFirst();
-		parque.cambiarSenha(admin, senha);
-		JLabel s = new JLabel("Se ha cambiado la contraseña exitosamente");
+		String m = "";
+		if (inputs.isEmpty()) {
+			m = "Por favor digite la contraseña";
+		}else {
+			String senha = inputs.getFirst();
+			parque.cambiarSenha(admin, senha);
+			m="Se ha cambiado la contraseña exitosamente";
+		}
+		JLabel s = new JLabel(m);
 		info.add(s);
 		return info;
 	}
@@ -272,14 +278,19 @@ public class ConsolaAdmin extends ConsolaMain{
 	
 	
 	private List<JLabel> infoanadirTrabajador(List<String> inputs) {
+		String m = "Se ha cergado el trabajador exitosamente";
 		List<JLabel> info  = new ArrayList<JLabel>();
 		String usua = inputs.get(0);
 		String contra = inputs.get(1);
 		String nombre = inputs.get(2);
-		int id = Integer.parseInt(inputs.get(3));
 		String nivel = inputs.get(4);
-		admin.mover.anadirEmpleado(usua, contra, nombre, id, nivel);
-		JLabel a = new JLabel("Se ha cergado el trabajador exitosamente");
+		try {
+			int id = Integer.parseInt(inputs.get(3));
+			admin.mover.anadirEmpleado(usua, contra, nombre, id, nivel);
+		} catch (NumberFormatException e) {
+			m = "Porfavor ingrese un numero de identidad correcto";
+		}
+		JLabel a = new JLabel(m);
 		info.add(a);
 		return info;
 	}
@@ -399,7 +410,7 @@ public class ConsolaAdmin extends ConsolaMain{
 		String nombre = inputs.get(0);
 		Empleado emple = admin.getEmpleado(nombre);
 		if (emple==null) {
-			JLabel s = new JLabel("No se ha encontrado un empleado con ese nombre\n");
+			JLabel s = new JLabel("No se ha encontrado un empleado con ese nombre");
 			info.add(s);
 		}else {
 			String a =emple.getNombre()+" identificado con el CC "+emple.getCodigo()+" tiene un nivel de caacitacion "+emple.getCapacitacion()+". En el momento tiene "+emple.getHorarios().size()+" turnos asignados";
@@ -518,32 +529,37 @@ public class ConsolaAdmin extends ConsolaMain{
 		String trabajo = inputs.get(0);
 		String empleado = inputs.get(1);
 		Empleado emple = admin.getEmpleado(empleado);
-		String turno = inputs.get(2);
-		LocalDateTime hora = null;
-		if (turno=="1"||turno=="apertura") {
-			hora = LocalDateTime.of(2025,4,14,11,00);
-		}else {
-			hora = LocalDateTime.of(2025,4,14,16,00);
-		}
-		String cual = admin.revisarTrabajo(trabajo);
-		if (cual==null) {
-			JLabel s = new JLabel("No se ha encontrado un trabajo con ese servicio\n");
-			info.add(s);
-		}else if (cual=="general") {
-			Trabajo tr = admin.getTrabajoGen(trabajo);
-			admin.asignar.asignarTrabajo(tr, emple, hora);
-			JLabel s = new JLabel("Se ha asignado correctamente el turno");
-			info.add(s);
-		}else if (cual=="atraccion") {
-			TrabajoAtraccion tr = admin.getTrabajoA(trabajo);
-			admin.asignar.asignarTrabajo(tr, emple, hora);
-			JLabel s = new JLabel("Se ha asignado correctamente el turno");
+		if (emple.equals(null)) {
+			JLabel s = new JLabel("No se ha encontrado el empleado.");
 			info.add(s);
 		}else {
-			TrabajoEspectaculo tr = admin.getTrabajoEsp(trabajo);
-			admin.asignar.asignarTrabajo(tr, emple, hora);
-			JLabel s = new JLabel("Se ha asignado correctamente el turnon");
-			info.add(s);
+			String turno = inputs.get(2);
+			LocalDateTime hora = null;
+			if (turno=="1"||turno=="apertura") {
+				hora = LocalDateTime.of(2025,4,14,11,00);
+			}else {
+				hora = LocalDateTime.of(2025,4,14,16,00);
+			}
+			String cual = admin.revisarTrabajo(trabajo);
+			if (cual==null) {
+				JLabel s = new JLabel("No se ha encontrado un trabajo con ese servicio\n");
+				info.add(s);
+			}else if (cual=="general") {
+				Trabajo tr = admin.getTrabajoGen(trabajo);
+				admin.asignar.asignarTrabajo(tr, emple, hora);
+				JLabel s = new JLabel("Se ha asignado correctamente el turno");
+				info.add(s);
+			}else if (cual=="atraccion") {
+				TrabajoAtraccion tr = admin.getTrabajoA(trabajo);
+				admin.asignar.asignarTrabajo(tr, emple, hora);
+				JLabel s = new JLabel("Se ha asignado correctamente el turno");
+				info.add(s);
+			}else {
+				TrabajoEspectaculo tr = admin.getTrabajoEsp(trabajo);
+				admin.asignar.asignarTrabajo(tr, emple, hora);
+				JLabel s = new JLabel("Se ha asignado correctamente el turno");
+				info.add(s);
+			}
 		}
 		return info;
 	}
@@ -599,6 +615,10 @@ public class ConsolaAdmin extends ConsolaMain{
 		for(Trabajo tr: admin.getTrabajosSinAsignar()) {
 			String a ="Trabajo en  "+tr.getServicio()+" donde el empleado tiene que "+tr.getDescripcion()+". necesita nivel de capacitacion "+tr.getCapaciacion();
 			JLabel s = new JLabel(a);
+			info.add(s);
+		}
+		if (info.isEmpty()) {
+			JLabel s = new JLabel("No se han encontrado trabajos sin turnos");
 			info.add(s);
 		}
 		return info;

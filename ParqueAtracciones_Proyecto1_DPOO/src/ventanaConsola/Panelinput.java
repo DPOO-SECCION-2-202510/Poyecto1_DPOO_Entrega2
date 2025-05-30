@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import consola.ConsolaMain;
+import exceptions.ExceptionInputIncorrecto;
+
 
 
 @SuppressWarnings("serial")
@@ -58,10 +60,13 @@ public class Panelinput extends JPanel implements ActionListener{
 	}
 	
 	
-	public List<String> getInputs(){
+	public List<String> getInputs() throws ExceptionInputIncorrecto{
 		List<String> usuarioInput = new ArrayList<String>();
 		for (JTextField in : inputs) {
 			String op = in.getText();
+			if (op.isBlank()) {
+				throw new ExceptionInputIncorrecto();
+			}
 			usuarioInput.add(op);
 		}
 		inputs.clear();

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import exceptions.ExceptionInfoNotFound;
+
 public class GenBoleta {
 	
 	
@@ -75,11 +77,14 @@ public class GenBoleta {
 		return tiq;
 	}
 	
-	public Entrada venderEntrada(String atraccion) {
+	public Entrada venderEntrada(String atraccion) throws ExceptionInfoNotFound {
 		Set<Integer> codigos = entradasVendidas.keySet();
 		int codigo = 10000;
 		if (codigos.isEmpty()==false) {
 			codigo = generarCodigo(codigos);
+		}
+		if (precioEntradas.containsKey(atraccion)==false) {
+			throw new ExceptionInfoNotFound("Atraccion inexistente");
 		}
 		int precio = precioEntradas.get(atraccion);
 		Entrada en = new Entrada(codigo, atraccion, precio);
