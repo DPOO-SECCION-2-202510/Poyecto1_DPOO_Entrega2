@@ -16,9 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder; 
 
+@SuppressWarnings("serial")
 public class VentanaBoleta extends JFrame{
 
     private PanelInfoBoleta infoP;
+    
     private PanelQR qrP;
 
     public VentanaBoleta(String cual, List<String> info, LocalDateTime dia) {
@@ -59,5 +61,17 @@ public class VentanaBoleta extends JFrame{
         setSize( 800, 400 ); 
         setLocationRelativeTo( null );
         setVisible( true );
+    }
+    
+    public static void main(String[] args) {
+    	LocalDateTime dia = LocalDateTime.now();
+    	List<String>datos = new ArrayList<String>();
+    	datos.add("Tipo");
+    	datos.add("numero");
+    	datos.add("dia");
+    	datos.add("valor");
+    	datos.add("Familiar");
+    	String cual = "tiquete";
+    	VentanaBoleta hola = new VentanaBoleta(cual, datos, dia);
     }
 }

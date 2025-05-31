@@ -18,7 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder; 
 import java.awt.Font; 
 
-import exceptions.ExceptionConstrasenaIncorrecta;
+
 import exceptions.ExceptionInfoNotFound;
 import exceptions.ExceptionInputIncorrecto;
 import exceptions.ExceptionUsuarioNoExiste;

@@ -9,13 +9,12 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder; 
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class PanelQR extends JPanel{
 
-    private VentanaBoleta principal;
 
     public PanelQR(VentanaBoleta origen, String cual, List<String> info) {
         setLayout(new BorderLayout());
-        this.principal = origen;
         setBackground(new Color(240, 248, 255)); 
 
         String data = "Tiquete: "+info.get(4)+"\nID: " +info.get(0)+ "\nFecha: "+info.get(2);

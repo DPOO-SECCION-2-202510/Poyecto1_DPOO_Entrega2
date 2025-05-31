@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +13,6 @@ import administrador.Admin;
 import cliente.Cliente;
 import cliente.ClienteBuilder;
 import empleado.Empleado;
-import empleado.Trabajo;
-import empleado.TrabajoAtraccion;
-import empleado.TrabajoEspectaculo;
 import exceptions.ExceptionInfoNotFound;
 import exceptions.ExceptionUsuarioNoExiste;
 import exceptions.ExceptionUsuarioYaExiste;
@@ -28,9 +24,7 @@ import juegos.AtraccionCultural;
 import juegos.AtraccionMecanica;
 import juegos.Espectaculo;
 import parque.ParqueAtraccion;
-import persistencia.PersistenciaParqueAtracciones;
 import persistencia.PersistenciaBasica;
-import parque.Espacio;
 
 class ParqueAtraccionTest {
 	

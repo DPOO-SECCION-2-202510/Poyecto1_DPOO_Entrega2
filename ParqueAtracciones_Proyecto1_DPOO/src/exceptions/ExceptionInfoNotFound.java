@@ -1,5 +1,6 @@
 package exceptions;
 
+@SuppressWarnings("serial")
 public class ExceptionInfoNotFound extends Exception {
 
 	public ExceptionInfoNotFound() {

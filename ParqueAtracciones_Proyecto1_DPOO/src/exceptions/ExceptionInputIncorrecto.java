@@ -1,5 +1,6 @@
 package exceptions;
 
+@SuppressWarnings("serial")
 public class ExceptionInputIncorrecto extends Exception {
 
 	public ExceptionInputIncorrecto() {

@@ -27,15 +27,12 @@ public class ConsolaAdmin extends ConsolaMain{
 	
 	private static String usuario;
 	
-	private String contra;
-	
 	private static Scanner input = new Scanner(System.in);;
 	
 	public ConsolaAdmin(Admin admin, ParqueAtraccion parque, String usuario, String contra) {
 		super();
 		this.admin = admin;
 		this.parque = parque;
-		this.contra = contra;
 		this.usuario = usuario;
 	}
 	

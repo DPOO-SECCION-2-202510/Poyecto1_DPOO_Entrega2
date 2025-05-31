@@ -13,6 +13,7 @@ import exceptions.ExceptionInputIncorrecto;
 import exceptions.ExceptionUsuarioNoExiste;
 import exceptions.ExceptionUsuarioYaExiste;
 
+@SuppressWarnings("serial")
 public class PanelSingIn extends JPanel implements ActionListener{
     
     private JLabel usuarioLabel;

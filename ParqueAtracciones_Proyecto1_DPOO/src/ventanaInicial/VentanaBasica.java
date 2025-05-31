@@ -124,13 +124,11 @@ public class VentanaBasica extends JFrame{
         if (opcion == 1) {
             Cliente cliente = parque.ingresarCliente(usuario, contra);
             ConsolaCliente consola = new ConsolaCliente(cliente, parque);
-            VentanaConsola nueva = new VentanaConsola(parque, consola);
-            dispose(); 
+            VentanaConsola nueva = new VentanaConsola(parque, consola); 
         } else if (opcion == 2) {
             Admin admin = parque.ingresarAdmin(usuario, contra);
             ConsolaAdmin consola = new ConsolaAdmin(admin, parque, usuario, contra);
             VentanaConsola nueva = new VentanaConsola(parque, consola);
-            dispose();
         } else if (opcion == 3) {
             Empleado emple = parque.ingresarEmpleado(usuario, contra, adminS);
             ConsolaEmpleado consola = new ConsolaEmpleado(emple);    
@@ -144,7 +142,6 @@ public class VentanaBasica extends JFrame{
             Cliente cliente = parque.crearCliente(usuario, contra, nombre, id, 0, 0, 0, "");
             ConsolaCliente consola = new ConsolaCliente(cliente, parque);
             VentanaConsola nueva = new VentanaConsola(parque, consola);
-            dispose();
         } else if (opcion == 2) {
             ArrayList<Trabajo> trabajosGeneral = PersistenciaBasica.cargarTrabajos(parque);
             ArrayList<TrabajoAtraccion> tatracciones = PersistenciaBasica.cargarTrabajosA(parque);
@@ -152,12 +149,10 @@ public class VentanaBasica extends JFrame{
             Admin admin = parque.crearAdmin(usuario, contra, nombre, id, trabajosGeneral, tatracciones, espectaculos);
             ConsolaAdmin consola = new ConsolaAdmin(admin, parque, usuario, contra);
             VentanaConsola nueva = new VentanaConsola(parque, consola);
-            dispose();
         } else if (opcion == 3) {
             Empleado emple = parque.crearEmpleado(usuario, contra, nombre, id, capacitacion);
             ConsolaEmpleado consola = new ConsolaEmpleado(emple);    
             VentanaConsola nueva = new VentanaConsola(parque, consola);
-            dispose();
         }
     }
 }

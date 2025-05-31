@@ -6,12 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.BorderFactory; 
-import javax.swing.border.EmptyBorder; 
 
-import consola.ConsolaAdmin;
-import consola.ConsolaCliente;
-import consola.ConsolaEmpleado;
 import consola.ConsolaMain;
 import exceptions.ExceptionInputIncorrecto;
 import parque.ParqueAtraccion;
@@ -20,7 +15,6 @@ import ventanaBoleta.VentanaBoleta;
 @SuppressWarnings("serial")
 public class VentanaConsola extends JFrame{
     
-    private ParqueAtraccion parque;
     private Panelinfo panelInfo;
     private Panelinput panelInput;
     private PanelOrden panelOrden;
@@ -31,7 +25,6 @@ public class VentanaConsola extends JFrame{
         this.panelInfo = new Panelinfo(this.consola);
         this.panelInput = new Panelinput(this.consola, this);
         this.panelOrden = new PanelOrden(this, this.consola);
-        this.parque = parque;
         
         setLayout( new BorderLayout(10, 10) ); 
         setBackground(new Color(240, 248, 255)); 
@@ -70,7 +63,7 @@ public class VentanaConsola extends JFrame{
     }
     
     public void mostrarBoleta(String cual, List<String> info, LocalDateTime dia) {
-        new VentanaBoleta(cual, info, dia);
+        VentanaBoleta hola = new VentanaBoleta(cual, info, dia);
     }
     
     public void cerrarSesion() {

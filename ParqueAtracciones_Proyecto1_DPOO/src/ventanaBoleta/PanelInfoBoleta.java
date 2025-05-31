@@ -1,82 +1,99 @@
 package ventanaBoleta;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Font; 
+import java.awt.Font;
+import java.awt.Image; 
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder; 
-import javax.swing.BorderFactory; 
+import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
 
-public class PanelInfoBoleta extends JPanel{
+@SuppressWarnings("serial")
+public class PanelInfoBoleta extends JPanel {
 
     private VentanaBoleta princial;
 
     public PanelInfoBoleta(VentanaBoleta ventana, String cual, List<String> info) {
         this.princial = ventana;
-        setLayout(new BorderLayout(10, 10)); 
-        setBackground(new Color(240, 248, 255)); 
-
-      
-        JLabel nom = new JLabel("<html><b>" + info.get(0) + "</b></html>", JLabel.CENTER);
-        nom.setFont(new Font("Arial", Font.BOLD, 18)); 
-        JPanel nomm = new JPanel();
-        nomm.setBackground(new Color(224, 255, 255)); 
-        nomm.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-        nomm.add(nom, BorderLayout.CENTER);
-
-       
-        JPanel datos = new JPanel();
-        datos.setLayout(new GridLayout(0, 2, 5, 5)); 
-        datos.setBackground(new Color(224, 255, 255)); 
-        datos.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY, 1), "Detalles de la Boleta"), 
-            new EmptyBorder(5, 5, 5, 5))); 
-
-        JLabel tiqn = new JLabel("Tipo:");
-        if (cual.equals("tiquete")) {
-            tiqn = new JLabel("Tiquete:");
-        } else if (cual.equals("fastPass")) {
-            tiqn = new JLabel("FastPass:");
-        }
-        JLabel tiq = new JLabel("<html><b>" + info.get(1) + "</b></html>");
-        JLabel fecn = new JLabel("Fecha de Expiracion:");
-        JLabel fec = new JLabel("<html><b>" + info.get(2) + "</b></html>");
-        JLabel valn = new JLabel("Valor:");
-        JLabel val = new JLabel("<html><b>" + info.get(3) + "</b></html>");
-
-        datos.add(tiqn);
-        datos.add(tiq);
-        datos.add(fecn);
-        datos.add(fec);
-        datos.add(valn);
-        datos.add(val);
-
-        String exclusividad = info.get(4);
-        JLabel imagen = new JLabel();
-        if (exclusividad.equals("Oro")) {
-            imagen.setIcon(new ImageIcon("./data/imagenOro.png"));
-        } else if (exclusividad.equals("Familiar")) {
-            imagen.setIcon(new ImageIcon("./data/imagenFamilia.png"));
-        } else { 
-            imagen.setIcon(new ImageIcon("./data/imagenDiamante.png"));
-        }
-        imagen.setHorizontalAlignment(JLabel.CENTER);
-        JPanel imagenPanel = new JPanel();
-        imagenPanel.setBackground(new Color(224, 255, 255)); 
-        imagenPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY, 1), "Nivel de Exclusividad"), 
-            new EmptyBorder(5, 5, 5, 5))); 
-        imagenPanel.add(imagen);
-
-        add(nomm, BorderLayout.NORTH);
-        add(datos, BorderLayout.CENTER);
-        add(imagenPanel, BorderLayout.SOUTH);
+        setLayout(null); 
+        setBackground(new Color(245, 222, 179)); 
         setBorder(new EmptyBorder(10, 10, 10, 10)); 
+
+        
+        JLabel noLabel = new JLabel("No.");
+        noLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        noLabel.setBounds(20, 20, 50, 20); 
+        add(noLabel);
+
+        JLabel numeroBoletaLabel = new JLabel(info.get(1));
+        numeroBoletaLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        numeroBoletaLabel.setBounds(60, 20, 150, 20); 
+        add(numeroBoletaLabel);
+
+        JLabel tipoTiqueteTitulo = new JLabel("Tiquete:");
+        tipoTiqueteTitulo.setFont(new Font("Arial", Font.PLAIN, 12));
+        tipoTiqueteTitulo.setBounds(20, 50, 80, 20); 
+        add(tipoTiqueteTitulo);
+
+        JLabel tipoTiqueteValor = new JLabel(info.get(0)); 
+        tipoTiqueteValor.setFont(new Font("Arial", Font.BOLD, 12));
+        tipoTiqueteValor.setBounds(110, 50, 150, 20); 
+        add(tipoTiqueteValor);
+
+        JLabel fechaExpTitulo = new JLabel("Fecha Exp.:");
+        fechaExpTitulo.setFont(new Font("Arial", Font.PLAIN, 12));
+        fechaExpTitulo.setBounds(20, 75, 80, 20); 
+        add(fechaExpTitulo);
+
+        JLabel fechaExpValor = new JLabel(info.get(2)); 
+        fechaExpValor.setFont(new Font("Arial", Font.BOLD, 12));
+        fechaExpValor.setBounds(110, 75, 150, 20); 
+        add(fechaExpValor);
+
+        JLabel valorTitulo = new JLabel("Valor:");
+        valorTitulo.setFont(new Font("Arial", Font.PLAIN, 12));
+        valorTitulo.setBounds(20, 100, 80, 20);
+        add(valorTitulo);
+
+        JLabel valorValor = new JLabel(info.get(3)); 
+        valorValor.setFont(new Font("Arial", Font.BOLD, 12));
+        valorValor.setBounds(110, 100, 150, 20); 
+        add(valorValor);
+
+        String exclusividad = info.get(4); 
+        ImageIcon originalIcon = null;
+        String imagePath = null;
+
+        if (exclusividad.equals("Oro")) {
+            imagePath = "./data/imagenOro.png"; 
+        } else if (exclusividad.equals("Familiar")) {
+            imagePath = "./data/familia.png"; 
+        } else { 
+            imagePath = "./data/imagenDiamante.png"; 
+        }
+
+        if (imagePath != null) {
+            originalIcon = new ImageIcon(imagePath);
+            if (originalIcon.getImageLoadStatus() == java.awt.MediaTracker.COMPLETE) {
+                int desiredWidth = 50;
+                int desiredHeight = 50; 
+                Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                JLabel imagenExclusividad = new JLabel(scaledIcon);
+                imagenExclusividad.setBounds(20, 180, desiredWidth, desiredHeight); 
+                add(imagenExclusividad);
+            } else {
+                JLabel errorLabel = new JLabel("Img no cargada");
+                errorLabel.setForeground(Color.RED);
+                errorLabel.setBounds(20, 180, 100, 20);
+                add(errorLabel);
+            }
+        }
+
+        setPreferredSize(new java.awt.Dimension(250, 250)); 
         setVisible(true);
     }
 }

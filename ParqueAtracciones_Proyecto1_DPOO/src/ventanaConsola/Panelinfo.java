@@ -14,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder; 
 import java.awt.Color;
 import java.awt.Component; 
-import java.awt.Dimension; 
 
 import consola.ConsolaCliente;
 import consola.ConsolaMain;
@@ -118,6 +117,7 @@ public class Panelinfo extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         String iniA[] = datosBoleta.get(2).split("/");
         LocalDateTime dia = LocalDateTime.of(Integer.parseInt(iniA[0]), Integer.parseInt(iniA[1]), Integer.parseInt(iniA[2]), 11, 0);
-        VentanaBoleta boleta = new VentanaBoleta(datosBoleta.getFirst(), datosBoleta, dia);
+        @SuppressWarnings("unused")
+		VentanaBoleta boleta = new VentanaBoleta(datosBoleta.getFirst(), datosBoleta, dia);
     }
 }

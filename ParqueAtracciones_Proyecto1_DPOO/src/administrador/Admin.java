@@ -1,13 +1,12 @@
 package administrador;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import empleado.Trabajo;
 import empleado.TrabajoAtraccion;
 import empleado.TrabajoEspectaculo;
 import empleado.Empleado;
-import persistencia.PersistenciaParqueAtracciones;
+
 
 public class Admin {
 	
