@@ -72,7 +72,7 @@ public class PanelInfoBoleta extends JPanel {
         } else if (exclusividad.equals("Familiar")) {
             imagePath = "./data/familia.png"; 
         } else { 
-            imagePath = "./data/imagenDiamante.png"; 
+            imagePath = "./data/diamante.png"; 
         }
 
         if (imagePath != null) {

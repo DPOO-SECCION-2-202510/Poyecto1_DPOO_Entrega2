@@ -42,7 +42,8 @@ public class VentanaBoleta extends JFrame{
         tituloParque.setFont(new Font("Serif", Font.BOLD, 24)); 
         tituloParque.setForeground(Color.WHITE); 
 
-        JLabel imagenParque = new JLabel(new ImageIcon("./data/imagen.png"), JLabel.CENTER); 
+        
+        JLabel imagenParque = new JLabel(new ImageIcon("./data/parque.png"), JLabel.CENTER); 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         String diaS = dia.format(formatter);
@@ -70,7 +71,7 @@ public class VentanaBoleta extends JFrame{
     	datos.add("numero");
     	datos.add("dia");
     	datos.add("valor");
-    	datos.add("Familiar");
+    	datos.add("Oro");
     	String cual = "tiquete";
     	VentanaBoleta hola = new VentanaBoleta(cual, datos, dia);
     }

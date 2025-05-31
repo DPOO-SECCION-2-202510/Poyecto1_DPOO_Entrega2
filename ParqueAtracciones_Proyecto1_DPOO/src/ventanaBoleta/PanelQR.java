@@ -2,6 +2,8 @@ package ventanaBoleta;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,9 +25,16 @@ public class PanelQR extends JPanel{
         
         JLabel imagen = new JLabel();
         if (donde != null) {
-            imagen.setIcon(new ImageIcon(donde));
+            ImageIcon originalIcon = new ImageIcon(donde);
+            Image originalImage = originalIcon.getImage();
+            int desiredWidth = 150; 
+            int desiredHeight = 150; 
+            Image scaledImage = originalImage.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            imagen.setIcon(scaledIcon);
         } else {
-            imagen.setText("Error al generar QR"); 
+            imagen.setText("Error al generar QR");
         }
         imagen.setHorizontalAlignment(JLabel.CENTER); 
 
