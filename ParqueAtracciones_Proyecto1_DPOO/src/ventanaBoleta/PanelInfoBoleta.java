@@ -19,7 +19,7 @@ public class PanelInfoBoleta extends JPanel {
     public PanelInfoBoleta(VentanaBoleta ventana, String cual, List<String> info) {
         this.princial = ventana;
         setLayout(null); 
-        setBackground(new Color(245, 222, 179)); 
+        setBackground(new Color(240, 248, 255)); 
         setBorder(new EmptyBorder(10, 10, 10, 10)); 
 
         
@@ -83,7 +83,7 @@ public class PanelInfoBoleta extends JPanel {
                 Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledImage);
                 JLabel imagenExclusividad = new JLabel(scaledIcon);
-                imagenExclusividad.setBounds(20, 180, desiredWidth, desiredHeight); 
+                imagenExclusividad.setBounds(50, 170, desiredWidth, desiredHeight); 
                 add(imagenExclusividad);
             } else {
                 JLabel errorLabel = new JLabel("Img no cargada");
